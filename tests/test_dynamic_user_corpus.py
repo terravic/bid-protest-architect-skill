@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Integration & DESIGN.md Compliance Tests for User-Supplied Real Corpora and Dashboard
+Integration & Design Specification Tests for User-Supplied Corpora and Dashboard
 """
 
 import os
@@ -25,7 +25,7 @@ from scripts.build_dashboard import build_dashboard_html
 
 
 def _write_minimal_docx(path: str, paragraphs: list) -> None:
-    """Creates a genuine .docx ZIP package with word/document.xml for testing."""
+    """Creates a minimal .docx archive with word/document.xml for multi-format testing."""
     p_xml = "".join(
         f'<w:p><w:r><w:t>{p.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")}</w:t></w:r></w:p>'
         for p in paragraphs
@@ -40,7 +40,7 @@ def _write_minimal_docx(path: str, paragraphs: list) -> None:
 
 
 class ThemeButtonTextChecker(HTMLParser):
-    """Verifies #theme-btn-light, #theme-btn-dark, #theme-btn-system contain icons only."""
+    """Checks #theme-btn-light, #theme-btn-dark, #theme-btn-system button structure."""
 
     def __init__(self) -> None:
         super().__init__()
@@ -70,9 +70,8 @@ class ThemeButtonTextChecker(HTMLParser):
 
 class TestDynamicUserCorpus(unittest.TestCase):
     def test_custom_dod_multiformat_corpus_end_to_end(self):
-        """Verifies real multi-format (.docx, .html, .csv, .md) user corpus ingestion & GR-01..GR-08."""
+        """Verifies multi-format (.docx, .html, .md) user corpus ingestion across GR-01..GR-08."""
         with tempfile.TemporaryDirectory() as tmpdir:
-            # 1. Solicitation in .docx format
             rfp_docx = os.path.join(tmpdir, "usaf_solicitation_rfp.docx")
             _write_minimal_docx(
                 rfp_docx,
@@ -90,23 +89,21 @@ class TestDynamicUserCorpus(unittest.TestCase):
                 ],
             )
 
-            # 2. Protester Proposal in .md
             with open(os.path.join(tmpdir, "protester_vanguard_proposal.md"), "w", encoding="utf-8") as f:
                 f.write(
-                    "**Offeror**: Vanguard Cyber Systems, LLC (CAGE: 9A2B1)\n"
+                    "**Offeror**: Vanguard Federal (CAGE: 9A2B1)\n"
                     "**Submitted Price**: $118,400,000.00\n"
                     "1. **Chief Mission Architect: Dr. Alan Grant**\n"
                     "   - Experience: 16 years federal defense architecture experience.\n"
-                    "   - Certifications: AWS Professional, CISSP.\n"
+                    "   - Certifications: Cloud Architect Professional, CISSP.\n"
                     "### 3.1 Reference 1: AFLCMC Mesh\n"
                     "- Value: $110,000,000.00\n"
                 )
 
-            # 3. Awardee Proposal in .html
             with open(os.path.join(tmpdir, "awardee_stratos_proposal.html"), "w", encoding="utf-8") as f:
                 f.write(
                     "<html><body>"
-                    "<p><b>Offeror</b>: Stratos Defense Group, Inc.</p>"
+                    "<p><b>Offeror</b>: Stratos Systems</p>"
                     "<p><b>Submitted Price</b>: $96,100,000.00</p>"
                     "<p>Target SLA: monthly availability of 99.90% uptime.</p>"
                     "<p>1. Chief Mission Architect: Evan Ross</p>"
@@ -114,14 +111,13 @@ class TestDynamicUserCorpus(unittest.TestCase):
                     "</body></html>"
                 )
 
-            # 4. TET + Discussions + OCI + Cost Realism in .md & .csv
             with open(os.path.join(tmpdir, "tet_consensus_and_en.md"), "w", encoding="utf-8") as f:
                 f.write(
                     "# TECHNICAL EVALUATION TEAM CONSENSUS REPORT\n"
                     "| Offeror | Factor 1: Architecture | Factor 2: Key Personnel | Factor 3: Past Performance | Factor 4: Price |\n"
                     "|---|---|---|---|---|\n"
-                    "| Stratos Defense Group, Inc. | Good | Acceptable | Satisfactory Confidence | $96,100,000.00 |\n"
-                    "| Vanguard Cyber Systems, LLC | Acceptable | Outstanding | Substantial Confidence | $118,400,000.00 |\n\n"
+                    "| Stratos Systems | Good | Acceptable | Satisfactory Confidence | $96,100,000.00 |\n"
+                    "| Vanguard Federal | Acceptable | Outstanding | Substantial Confidence | $118,400,000.00 |\n\n"
                     "## Detailed Findings: Vanguard\n"
                     "### Factor 1\n"
                     "- Significant Weakness: Vanguard did not propose \"an optical ground relay station.\" Neither Section L nor Section M mentions optical ground relays (unstated criteria). Reduced Vanguard from Outstanding to Acceptable.\n"
@@ -135,7 +131,7 @@ class TestDynamicUserCorpus(unittest.TestCase):
                     "# POST-AWARD DEBRIEFING LETTER\n"
                     "**DATE OF DEBRIEFING DELIVERY**: September 14, 2026\n"
                     "Agency responses to timely debriefing questions will be delivered by September 18, 2026.\n"
-                    "I hereby select Stratos Defense Group, Inc. for award in the amount of $96,100,000.00 under a best value tradeoff.\n"
+                    "I hereby select **Stratos Systems** for award in the amount of $96,100,000.00 under a best value tradeoff.\n"
                 )
 
             indexer = ProcurementCorpusIndexer(data_dir=tmpdir)
@@ -159,13 +155,12 @@ class TestDynamicUserCorpus(unittest.TestCase):
             self.assertIn("GR-08", codes)
 
             deadlines = analyzer.get_deadlines()
-            # Sept 18, 2026 (Fri) + 5 days = Sept 23, 2026 (Wed)
             self.assertEqual(deadlines["cica_stay_iso"], "2026-09-23")
 
             filing_out = os.path.join(tmpdir, "filing.md")
             filing_txt = generate_formal_filing(tmpdir, filing_out)
             self.assertIn("FA8730-26-R-0042", filing_txt)
-            self.assertIn("VANGUARD CYBER SYSTEMS, LLC", filing_txt)
+            self.assertIn("VANGUARD FEDERAL", filing_txt)
 
             diag = run_diagnostics(tmpdir)
             self.assertGreaterEqual(diag["optimized"]["accuracy"], 80.0)
@@ -175,23 +170,23 @@ class TestDynamicUserCorpus(unittest.TestCase):
             with open(dash_out, "r", encoding="utf-8") as f:
                 dash_html = f.read()
             self.assertIn("FA8730-26-R-0042", dash_html)
-            self.assertIn("Vanguard Cyber Systems, LLC", dash_html)
+            self.assertIn("Vanguard Federal", dash_html)
 
-    def test_agent_grounds_json_override(self):
-        """Verifies agent harness can supply custom structured grounds JSON."""
+    def test_grounds_json_override(self):
+        """Verifies structured JSON grounds override support."""
         with tempfile.TemporaryDirectory() as tmpdir:
-            grounds_path = os.path.join(tmpdir, "agent_grounds.json")
+            grounds_path = os.path.join(tmpdir, "custom_grounds.json")
             custom_grounds = [
                 {
                     "count_id": "COUNT I",
-                    "title": "Custom Agent-Identified Solicitation Ambiguity",
+                    "title": "Solicitation Evaluation Criteria Deviation",
                     "category_code": "GR-01",
                     "far_citation": "FAR 15.305(a)",
-                    "gao_precedent": "Vistronix, LLC, B-416916",
-                    "factual_basis": "Custom factual basis from agent prompt.",
-                    "agency_error": "Custom agency error.",
-                    "prejudice_analysis": "Custom prejudice analysis exceeding twenty characters.",
-                    "agency_defense_rebuttal": "Custom rebuttal.",
+                    "gao_precedent": "GAO Decision B-416916",
+                    "factual_basis": "Documented factual basis from custom package.",
+                    "agency_error": "Agency deviated from Section M.",
+                    "prejudice_analysis": "Correcting this error restores protester to first position.",
+                    "agency_defense_rebuttal": "General scope language does not permit unstated mandates.",
                     "viability_score": 94,
                     "target_factor": "Factor 1",
                 }
@@ -205,10 +200,10 @@ class TestDynamicUserCorpus(unittest.TestCase):
             )
             grounds = analyzer.run_investigation()
             self.assertEqual(len(grounds), 1)
-            self.assertEqual(grounds[0].title, "Custom Agent-Identified Solicitation Ambiguity")
+            self.assertEqual(grounds[0].title, "Solicitation Evaluation Criteria Deviation")
 
 
-class TestDashboardDesignCompliance(unittest.TestCase):
+class TestDashboardAndRepositoryStandards(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.dashboard_path = os.path.join(ROOT_DIR, "dashboard.html")
@@ -225,7 +220,7 @@ class TestDashboardDesignCompliance(unittest.TestCase):
         for token in required_tokens:
             self.assertIn(token, upper_html, f"Missing DESIGN.md color token {token}")
 
-    def test_three_icon_only_theme_buttons(self):
+    def test_three_theme_selector_buttons(self):
         checker = ThemeButtonTextChecker()
         checker.feed(self.html)
         for btn_id, expected_mode in (
@@ -235,26 +230,46 @@ class TestDashboardDesignCompliance(unittest.TestCase):
         ):
             self.assertIn(btn_id, checker.buttons, f"Missing {btn_id}")
             info = checker.buttons[btn_id]
-            self.assertTrue(info["has_svg"], f"{btn_id} must contain an SVG icon")
-            self.assertEqual(info["text"], "", f"{btn_id} must be icon-only with zero text")
+            self.assertTrue(info["has_svg"])
+            self.assertEqual(info["text"], "")
             self.assertEqual(info["attrs"].get("data-theme-mode"), expected_mode)
 
-    def test_typography_and_forbidden_words(self):
+    def test_typography_and_terminology(self):
         self.assertIn("Instrument Serif", self.html)
         self.assertIn("DM Sans", self.html)
         self.assertIn("IBM Plex Mono", self.html)
         self.assertIn("tabular-nums", self.html)
-        self.assertIsNone(re.search(r"\bInter\b", self.html), "Generic Inter font is prohibited by DESIGN.md")
-        self.assertIsNone(re.search(r"\bRoboto\b", self.html), "Generic Roboto font is prohibited by DESIGN.md")
-        self.assertIsNone(re.search(r"physics", self.html, re.IGNORECASE), "Forbidden word found in dashboard.html")
+        self.assertIsNone(re.search(r"\bInter\b", self.html))
+        self.assertIsNone(re.search(r"\bRoboto\b", self.html))
+        self.assertIsNone(re.search(r"physics", self.html, re.IGNORECASE))
 
-    def test_empirical_data_and_webgl_fallback_present(self):
+    def test_empirical_data_and_prd_present(self):
         self.assertIn("HHS-CMS-2026-CLOUD-009", self.html)
-        self.assertIn("Apex Federal Solutions, LLC", self.html)
-        self.assertIn("Nexus Defense Systems, Inc.", self.html)
+        self.assertIn("Apex Federal", self.html)
+        self.assertIn("Nexus Systems", self.html)
         self.assertIn("Interactive Relationship Node Map", self.html)
         self.assertIn("2D Projection Fallback", self.html)
-        self.assertIn("extractDocxBrowser", self.html)
+        self.assertTrue(os.path.isfile(os.path.join(ROOT_DIR, "prd.md")))
+
+    def test_relative_paths_and_ascii_encoding(self):
+        skip_dirs = {".git", "__pycache__", ".pytest_cache"}
+        for dirpath, dirnames, filenames in os.walk(ROOT_DIR):
+            dirnames[:] = [d for d in dirnames if d not in skip_dirs]
+            for fn in filenames:
+                fp = os.path.join(dirpath, fn)
+                with open(fp, "r", encoding="utf-8") as f:
+                    content = f.read()
+                rel = os.path.relpath(fp, ROOT_DIR)
+                self.assertIsNone(
+                    re.search(r"/(?:usr/local|home/[A-Za-z0-9_\-]+)", content),
+                    f"Absolute local path in {rel}",
+                )
+                self.assertIsNone(
+                    re.search(r"file:" + r"///[A-Za-z0-9_\-]", content),
+                    f"Absolute file URI in {rel}",
+                )
+                non_ascii = [ch for ch in content if ord(ch) > 127]
+                self.assertEqual(non_ascii, [], f"Non-ASCII characters found in {rel}: {set(non_ascii)}")
 
 
 if __name__ == "__main__":

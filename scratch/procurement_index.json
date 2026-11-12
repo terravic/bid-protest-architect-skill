@@ -23,7 +23,7 @@
       "relative_importance": "Evaluated Factor",
       "weight_rank": 2,
       "mandatory_minimums": [
-        "Lead Cloud Solutions Architect: Minimum 10 years experience, AWS/GCP Professional & CISSP",
+        "Lead Cloud Solutions Architect: Minimum 10 years experience, Cloud Architect Professional & CISSP",
         "Chief Information Security Officer (CISO) / Security Lead: Minimum 8 years experience, CISSP/CISM",
         "Senior DevSecOps Engineering Lead: Minimum 7 years experience"
       ]
@@ -44,7 +44,7 @@
   ],
   "offerors": {
     "protester": {
-      "name": "Apex Federal Solutions, LLC",
+      "name": "Apex Federal",
       "short_name": "Apex",
       "cage": "4K9L2",
       "duns": "839201948",
@@ -56,9 +56,9 @@
         "Factor 3": "Substantial Confidence"
       },
       "strengths": [
-        "Factor 1: Proposed 99.999% SLA exceeds requirements with robust multi-region GovCloud architecture.",
-        "Factor 2: Dr. Elena Vance possesses 14 years of GovCloud experience, active AWS Professional Architect, Google Fellow, and CISSP certifications, providing unmatched domain mastery.",
-        "Factor 2: All three key personnel exceed mandatory experience thresholds with pristine records."
+        "Factor 1: Proposed 99.999% SLA exceeds requirements with multi-region FedRAMP High government cloud architecture.",
+        "Factor 2: Dr. Elena Vance possesses 14 years of federal cloud experience, active Certified Cloud Solutions Architect Professional, Certified Federal Cloud Fellow, and CISSP certifications.",
+        "Factor 2: All three key personnel exceed mandatory experience thresholds with verified records."
       ],
       "weaknesses": [
         "Factor 1: Significant Weakness 1 (UNSTATED CRITERIA): The TET assigned a Significant Weakness because Apex \"did not propose a dedicated on-premises physical datacenter hardware bridge facility to connect with legacy Baltimore CMS mainframe hardware.\" (Note: Section L & M do not mention or require on-premises physical datacenter hardware)."
@@ -72,7 +72,7 @@
             "role": "Lead Cloud Solutions Architect",
             "candidate": "Dr. Elena Vance, Ph.D.",
             "years": 14.0,
-            "certifications": "AWS Certified Solutions Architect - Professional (Active #AWS-99281), Google Cloud Certified Fellow, CISSP (#498210, Current).",
+            "certifications": "Certified Cloud Solutions Architect - Professional (Active #CSA-99281), Certified Federal Cloud Fellow, CISSP (#498210, Current).",
             "lacks_mandatory_certs": false
           },
           {
@@ -92,12 +92,12 @@
         ],
         "references": [
           {
-            "title": "Centers for Medicare & Medicaid Services \u2013 Current Cloud Platform (Incumbent Contract)",
+            "title": "Centers for Medicare & Medicaid Services - Current Cloud Platform (Incumbent Contract)",
             "value": 91200000.0,
             "non_relevant": false
           },
           {
-            "title": "Defense Health Agency (DHA) \u2013 Electronic Health Record Cloud Enclave",
+            "title": "Defense Health Agency (DHA) - Electronic Health Record Cloud Enclave",
             "value": 64500000.0,
             "non_relevant": false
           }
@@ -105,7 +105,7 @@
       }
     },
     "awardee": {
-      "name": "Nexus Defense Systems, Inc.",
+      "name": "Nexus Systems",
       "short_name": "Nexus",
       "cage": "7Z8P1",
       "duns": "120495831",
@@ -121,8 +121,8 @@
       ],
       "weaknesses": [
         "Factor 1: Note on SLA (FAILURE TO ENFORCE MANDATORY MINIMUM): The TET noted that Nexus proposed a 99.95% availability SLA. The TET determined that \"99.95% is acceptable for general web workloads,\" despite Section L.3.1 mandating a 99.99% minimum threshold. No deficiency was assigned.",
-        "Factor 2: Note on Lead Architect (DISPARATE TREATMENT / WAIVER OF MANDATORY MINIMUM): The TET evaluated Johnathan Brooks (Lead Cloud Architect). Although Mr. Brooks possesses only 4 years of cloud experience and lacks AWS Professional and CISSP certifications (Section L.4 mandated 10 years, AWS Professional/Google Fellow, and CISSP), the TET stated: \"The candidate possesses good commercial aptitude which compensates for the shortage in required years of experience.\" A rating of Acceptable was awarded.",
-        "Factor 3: Note on Relevance (FLAWED EVALUATION): Evaluated MegaRetail ($3.2M) and State DMV ($8.5M). Even though neither contract met the Section L.5 relevance threshold ($50M+ total value, FedRAMP High, enterprise federal cloud), the TET concluded that \"commercial web hosting demonstrates general competence.\""
+        "Factor 2: Note on Lead Architect (DISPARATE TREATMENT / WAIVER OF MANDATORY MINIMUM): The TET evaluated Johnathan Brooks (Lead Cloud Architect). Although Mr. Brooks possesses only 4 years of cloud experience and lacks Cloud Architect Professional and CISSP certifications (Section L.4 mandated 10 years, Cloud Architect Professional, and CISSP), the TET stated: \"The candidate possesses good commercial aptitude which compensates for the shortage in required years of experience.\" A rating of Acceptable was awarded.",
+        "Factor 3: Note on Relevance (FLAWED EVALUATION): Evaluated Retail Storefront Portal ($3.2M) and State DMV ($8.5M). Even though neither contract met the Section L.5 relevance threshold ($50M+ total value, FedRAMP High, federal healthcare cloud), the TET concluded that \"commercial web hosting demonstrates general competence.\""
       ],
       "metrics": {
         "sla_pct": 99.95,
@@ -133,7 +133,7 @@
             "role": "Lead Cloud Solutions Architect",
             "candidate": "Johnathan Brooks",
             "years": 4.0,
-            "certifications": "AWS Certified Solutions Architect - Associate (Earned 2023). Note: Does not possess AWS Professional or Google Professional certification, and does not possess CISSP.",
+            "certifications": "Cloud Solutions Architect - Associate (Earned 2023). Note: Does not possess Certified Cloud Solutions Architect Professional certification, and does not possess CISSP.",
             "lacks_mandatory_certs": true
           },
           {
@@ -149,16 +149,30 @@
             "years": 6.0,
             "certifications": "",
             "lacks_mandatory_certs": false
+          },
+          {
+            "role": "1 Reference 1",
+            "candidate": "Retail Storefront Portal - E-Commerce Web Catalog Optimization",
+            "years": null,
+            "certifications": "",
+            "lacks_mandatory_certs": false
+          },
+          {
+            "role": "2 Reference 2",
+            "candidate": "State Department of Motor Vehicles - Web Portal",
+            "years": null,
+            "certifications": "",
+            "lacks_mandatory_certs": false
           }
         ],
         "references": [
           {
-            "title": "MegaRetail Online \u2013 E-Commerce Web Storefront Optimization",
+            "title": "Retail Storefront Portal - E-Commerce Web Catalog Optimization",
             "value": 3200000.0,
             "non_relevant": true
           },
           {
-            "title": "State Department of Motor Vehicles \u2013 Web Portal",
+            "title": "State Department of Motor Vehicles - Web Portal",
             "value": 8500000.0,
             "non_relevant": false
           }
@@ -271,6 +285,36 @@
       "source_cite": "proposal_nexus_awardee.md:L27"
     },
     {
+      "id": "CMP-07",
+      "factor": "Factor 2",
+      "requirement": "1 Reference 1",
+      "clause_ref": "RFP L.4.4",
+      "weight_rank": 2,
+      "threshold": ">= 10 yrs",
+      "protester_value": "Compliant",
+      "awardee_value": "N/A",
+      "variance": "Exceeds",
+      "tet_disposition": "Verified",
+      "status": "PASS",
+      "category_code": "NOMINAL",
+      "source_cite": "proposal_nexus_awardee.md:L34"
+    },
+    {
+      "id": "CMP-08",
+      "factor": "Factor 2",
+      "requirement": "2 Reference 2",
+      "clause_ref": "RFP L.4.5",
+      "weight_rank": 2,
+      "threshold": ">= 5 yrs",
+      "protester_value": "Compliant",
+      "awardee_value": "N/A",
+      "variance": "Exceeds",
+      "tet_disposition": "Verified",
+      "status": "PASS",
+      "category_code": "NOMINAL",
+      "source_cite": "technical_evaluation_report.md:L43"
+    },
+    {
       "id": "CMP-PP1",
       "factor": "Factor 3",
       "requirement": "Past Performance Ref #1 Scope & Value",
@@ -321,31 +365,31 @@
       "filename": "debriefing_letter.md",
       "role": "debriefing",
       "role_label": "Post-Award Debriefing & Q&A",
-      "bytes": 1887,
+      "bytes": 1844,
       "lines": 35,
-      "excerpt": "# FORMAL WRITTEN POST-AWARD DEBRIEFING LETTER **TO**: Apex Federal Solutions, LLC **Attn**: David Sterling, VP of Federal Contracts **FROM**: Contracting Officer, HHS / CMS Office of Acquisition **DATE OF DEBRIEFING DELIVERY**: August"
+      "excerpt": "# FORMAL WRITTEN POST-AWARD DEBRIEFING LETTER **TO**: Apex Federal **Attn**: David Sterling, VP of Federal Contracts **FROM**: Contracting Officer, HHS / CMS Office of Acquisition **DATE OF DEBRIEFING DELIVERY**: August 10, 2026 **S"
     },
     {
       "filename": "proposal_apex_protester.md",
       "role": "protester_proposal",
       "role_label": "Protester Proposal Submission",
-      "bytes": 2662,
+      "bytes": 2730,
       "lines": 42,
-      "excerpt": "# PROPOSAL EXCERPT: APEX FEDERAL SOLUTIONS **Solicitation**: HHS-CMS-2026-CLOUD-009 (FHIS-CM) **Offeror**: Apex Federal Solutions, LLC (CAGE: 4K9L2, DUNS: 839201948) **Role**: Incumbent Prime Contractor **Submitted Price (Volume IV)**"
+      "excerpt": "# PROPOSAL EXCERPT: OFFEROR APEX **Solicitation**: HHS-CMS-2026-CLOUD-009 (FHIS-CM) **Offeror**: Apex Federal (CAGE: 4K9L2, UEI: 839201948) **Role**: Incumbent Prime Contractor **Submitted Price (Volume IV)**: $94,500,000.00 (Firm-Fix"
     },
     {
       "filename": "proposal_nexus_awardee.md",
       "role": "awardee_proposal",
       "role_label": "Awardee Proposal Submission",
-      "bytes": 2191,
+      "bytes": 2172,
       "lines": 41,
-      "excerpt": "# PROPOSAL EXCERPT: NEXUS DEFENSE SYSTEMS **Solicitation**: HHS-CMS-2026-CLOUD-009 (FHIS-CM) **Offeror**: Nexus Defense Systems, Inc. (CAGE: 7Z8P1, DUNS: 120495831) **Role**: Non-Incumbent Awardee **Submitted Price (Volume IV)**: $82,"
+      "excerpt": "# PROPOSAL EXCERPT: OFFEROR NEXUS **Solicitation**: HHS-CMS-2026-CLOUD-009 (FHIS-CM) **Offeror**: Nexus Systems (CAGE: 7Z8P1, UEI: 120495831) **Role**: Non-Incumbent Awardee **Submitted Price (Volume IV)**: $82,200,000.00 (Firm-Fixed-"
     },
     {
       "filename": "solicitation_rfp_section_lm.md",
       "role": "solicitation",
       "role_label": "Solicitation / RFP (Sections L & M)",
-      "bytes": 5874,
+      "bytes": 5800,
       "lines": 74,
       "excerpt": "# SOLICITATION NO. HHS-CMS-2026-CLOUD-009 ## Title: Federal Healthcare Infrastructure Security & Cloud Modernization (FHIS-CM) **Issuing Agency**: Department of Health and Human Services (HHS) / Centers for Medicare & Medicaid Services (CMS"
     },
@@ -353,7 +397,7 @@
       "filename": "ssdd_source_selection_decision.md",
       "role": "ssdd",
       "role_label": "Source Selection Decision (SSDD)",
-      "bytes": 2158,
+      "bytes": 2126,
       "lines": 36,
       "excerpt": "# SOURCE SELECTION DECISION DOCUMENT (SSDD) **Solicitation**: HHS-CMS-2026-CLOUD-009 **Program**: Federal Healthcare Infrastructure Security & Cloud Modernization (FHIS-CM) **Contracting Agency**: Department of Health and Human Services"
     },
@@ -361,7 +405,7 @@
       "filename": "technical_evaluation_report.md",
       "role": "tet_report",
       "role_label": "TET Consensus Evaluation Report",
-      "bytes": 3510,
+      "bytes": 3508,
       "lines": 43,
       "excerpt": "# TECHNICAL EVALUATION TEAM (TET) CONSENSUS EVALUATION REPORT **Solicitation**: HHS-CMS-2026-CLOUD-009 (FHIS-CM) **Date of Consensus**: July 22, 2026 **Chairperson**: Lead Technical Evaluator, CMS Office of Information Technology ---"
     }

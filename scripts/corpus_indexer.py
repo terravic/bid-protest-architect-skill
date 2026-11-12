@@ -497,12 +497,12 @@ class ProcurementCorpusIndexer:
     def _extract_factors(self, rfp_text: str, all_text: str) -> List[Dict[str, Any]]:
         factors_map: Dict[str, Dict[str, Any]] = {}
         for m in re.finditer(
-            r"(Factor\s+\d+)\s*[:–\-]\s*([^\n\r*()]+)",
+            r"(Factor\s+\d+)\s*[:\u2013\-]\s*([^\n\r*()]+)",
             rfp_text or all_text,
             re.IGNORECASE,
         ):
             fid = f"Factor {re.search(r'\d+', m.group(1)).group(0)}"
-            fname = re.sub(r"\*+", "", m.group(2)).strip(" –-:")
+            fname = re.sub(r"\*+", "", m.group(2)).strip(" \u2013-:")
             if fid not in factors_map and len(fname) > 2:
                 factors_map[fid] = {
                     "id": fid,
@@ -567,8 +567,8 @@ class ProcurementCorpusIndexer:
                     yrs = pm.group(2).strip()
                     tail = re.sub(r"\*+", "", pm.group(3))
                     certs = []
-                    if "aws" in tail.lower() or "google" in tail.lower():
-                        certs.append("AWS/GCP Professional")
+                    if "professional" in tail.lower() or "architect" in tail.lower():
+                        certs.append("Cloud Architect Professional")
                     if "cissp" in tail.lower() and "cism" in tail.lower():
                         certs.append("CISSP/CISM")
                     elif "cissp" in tail.lower():
@@ -584,7 +584,6 @@ class ProcurementCorpusIndexer:
                 val_matches = re.findall(r">=\s*\$[0-9,]+(?:\.[0-9]+)?\s*(?:M|million)?", rfp_text, re.IGNORECASE)
                 rel_parts = []
                 if val_matches:
-                    # Prefer total contract value if multiple
                     chosen = val_matches[-1]
                     amt = parse_dollar_amount(chosen)
                     rel_parts.append(f"Value >= {format_compact_currency(amt).replace('.00', '')}" if amt else chosen)
@@ -631,8 +630,9 @@ class ProcurementCorpusIndexer:
             all_text,
             patterns=[
                 r"\*\*Offeror\*\*\s*:\s*([^\n(\r|]+)",
-                r"select\s+\*?\*?([A-Z][A-Za-z0-9\s,&.\-]+?(?:Inc\.|LLC|Corp\.|Corporation|Systems|Solutions))\*?\*?\s+for\s+award",
-                r"awarded\s+to\s+\*?\*?([A-Z][A-Za-z0-9\s,&.\-]+?(?:Inc\.|LLC|Corp\.|Corporation|Systems|Solutions))\*?\*?",
+                r"select\s+\*\*([A-Z][A-Za-z0-9\s,&.\-]+?)\*\*\s+for\s+award",
+                r"select\s+\*?\*?([A-Z][A-Za-z0-9\s,&.\-]+?(?:Systems|Solutions|Federal|Group))\*?\*?\s+for\s+award",
+                r"awarded\s+to\s+\*?\*?([A-Z][A-Za-z0-9\s,&.\-]+?)(?:\s*\(|\n|$)",
                 r"Awardee\s*[:\-]\s*\*?\*?([^\n\r|(]+)",
             ],
             default="Awardee Offeror",
@@ -763,7 +763,7 @@ class ProcurementCorpusIndexer:
         a_short = a_name.split()[0]
         for line in text.splitlines():
             clean_l = re.sub(r"\*+", "", line)
-            fm = re.search(r"Factor\s*(\d+)\)?\s*[:–\-]\s*(?:Rating:\s*)?([A-Za-z\s()]+)", clean_l, re.IGNORECASE)
+            fm = re.search(r"Factor\s*(\d+)\)?\s*[:\u2013\-]\s*(?:Rating:\s*)?([A-Za-z\s()]+)", clean_l, re.IGNORECASE)
             if fm:
                 fid = f"Factor {fm.group(1)}"
                 val = fm.group(2).split("(")[0].strip() if "Evaluated Price" in fm.group(2) else fm.group(2).strip()
@@ -1048,7 +1048,7 @@ class ProcurementCorpusIndexer:
                 "tet_disposition": "Rated Satisfactory Despite Non-Relevance" if breach else "Verified",
                 "status": "CRITICAL" if (breach and r_idx == 0) else ("WARNING" if breach else "PASS"),
                 "category_code": "GR-04" if breach else "NOMINAL",
-                "source_cite": find_line_citation(self.documents, r"MegaRetail|Relevance|Past Performance", tet_files + rfp_files),
+                "source_cite": find_line_citation(self.documents, r"Retail|Relevance|Past Performance", tet_files + rfp_files),
             })
 
         # 6. Price / Tradeoff Row

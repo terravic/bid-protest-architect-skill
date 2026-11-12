@@ -10,7 +10,7 @@
 ## 1. Executive Summary and Award Decision
 Pursuant to FAR 15.308, I have reviewed the Technical Evaluation Team (TET) Consensus Report and the Price Evaluation Report.
 
-I hereby select **Nexus Defense Systems, Inc.** for award in the amount of **$82,200,000.00**.
+I hereby select **Nexus Systems** for award in the amount of **$82,200,000.00**.
 
 ---
 
@@ -19,8 +19,8 @@ I hereby select **Nexus Defense Systems, Inc.** for award in the amount of **$82
 ### Summary Matrix
 | Offeror | Factor 1: Technical | Factor 2: Key Personnel | Factor 3: Past Performance | Evaluated Price |
 |---|---|---|---|---|
-| **Nexus Defense Systems** | **Good** | **Acceptable** | **Satisfactory Confidence** | **$82,200,000.00** |
-| **Apex Federal Solutions** | **Acceptable** | **Outstanding** | **Substantial Confidence** | **$94,500,000.00** |
+| **Nexus Systems** | **Good** | **Acceptable** | **Satisfactory Confidence** | **$82,200,000.00** |
+| **Apex Federal** | **Acceptable** | **Outstanding** | **Substantial Confidence** | **$94,500,000.00** |
 
 ### SSA Tradeoff Rationale
 1. Under **Factor 1 (Technical & Cloud Architecture)**, Nexus received a higher rating of **Good**, whereas Apex received **Acceptable** due to a Significant Weakness for failing to provide an on-premises physical datacenter hardware bridge.

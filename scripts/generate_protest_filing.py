@@ -27,8 +27,8 @@ from scripts.corpus_indexer import format_currency
 def generate_formal_filing(
     data_dir: str,
     output_path: str,
-    counsel_name: str = "Jane Doe, Esq.",
-    firm_name: str = "Sterling, Vance & Associates, LLP",
+    counsel_name: str = "Designated Protest Counsel",
+    firm_name: str = "Procurement Legal Practice",
     file_paths: Optional[List[str]] = None,
     grounds_json: Optional[str] = None,
 ) -> str:
@@ -67,12 +67,12 @@ def generate_formal_filing(
         "",
         "## FORMAL BID PROTEST",
         "",
-        f"{prot['name']} (\"{prot_short}\" or \"Protester\"), by and through its designated counsel, {counsel_name} of {firm_name}, hereby files this formal Bid Protest pursuant to 31 U.S.C. §§ 3551-3556 and 4 C.F.R. Part 21 challenging the contract award under Request for Proposals (\"RFP\") No. {sol_id} ({prog_title}) to {awd['name']} (\"{awd_short}\" or \"Awardee\").",
+        f"{prot['name']} (\"{prot_short}\" or \"Protester\"), by and through its designated counsel ({counsel_name}, {firm_name}), hereby files this formal Bid Protest pursuant to 31 U.S.C. 3551-3556 and 4 C.F.R. Part 21 challenging the contract award under Request for Proposals (\"RFP\") No. {sol_id} ({prog_title}) to {awd['name']} (\"{awd_short}\" or \"Awardee\").",
         "",
         "### I. JURISDICTION, TIMELINESS, AND CICA AUTOMATIC STAY",
-        "1. **Jurisdiction**: The Comptroller General has jurisdiction over this procurement pursuant to the Competition in Contracting Act of 1984 (\"CICA\"), 31 U.S.C. § 3551 *et seq.*",
-        f"2. **Timeliness**: Protester received a written debriefing on {deadlines['debriefing_received']}. Protester submitted timely debriefing questions ({q_due}), and the Agency concluded the required debriefing on {deadlines['debriefing_concluded']}. Under 4 C.F.R. § 21.2(a)(2) and 31 U.S.C. § 3553(d)(4), filing on or before {deadlines['cica_stay_deadline']} triggers the mandatory statutory stay of contract performance.",
-        "3. **Interested Party Standing**: Protester is an \"interested party\" under 4 C.F.R. § 21.0(a)(1) as an actual offeror whose direct economic interest is affected by the award and who stands next in line for award under a lawful evaluation.",
+        "1. **Jurisdiction**: The Comptroller General has jurisdiction over this procurement pursuant to the Competition in Contracting Act of 1984 (\"CICA\"), 31 U.S.C. 3551 *et seq.*",
+        f"2. **Timeliness**: Protester received a written debriefing on {deadlines['debriefing_received']}. Protester submitted timely debriefing questions ({q_due}), and the Agency concluded the required debriefing on {deadlines['debriefing_concluded']}. Under 4 C.F.R. 21.2(a)(2) and 31 U.S.C. 3553(d)(4), filing on or before {deadlines['cica_stay_deadline']} triggers the mandatory statutory stay of contract performance.",
+        "3. **Interested Party Standing**: Protester is an \"interested party\" under 4 C.F.R. 21.0(a)(1) as an actual offeror whose direct economic interest is affected by the award and who stands next in line for award under a lawful evaluation.",
         "",
         "### II. STATEMENT OF FACTS",
         f"1. The Agency issued Solicitation No. {sol_id} ({rfp_date}) for {prog_title} as a {idx.get('contract_type', 'Firm-Fixed-Price')} procurement.",
@@ -87,7 +87,7 @@ def generate_formal_filing(
     for g in grounds:
         filing_lines.extend([
             f"#### {g.count_id}: {g.title.upper()} ({g.far_citation})",
-            f"1. *Applicable Legal Standard*: Under {g.far_citation} and established GAO precedent (*{g.gao_precedent}*), the Agency is legally required to evaluate proposals strictly in accordance with the stated terms of the solicitation and treat all offerors equally.",
+            f"1. *Applicable Legal Standard*: Under {g.far_citation} and Comptroller General precedent (*{g.gao_precedent}*), the Agency is legally required to evaluate proposals strictly in accordance with the stated terms of the solicitation and treat all offerors equally.",
             f"2. *Agency Error & Contemporaneous Record*: {g.factual_basis} {g.agency_error}",
             f"3. *Competitive Prejudice*: {g.prejudice_analysis}",
             f"4. *Rebuttal to Discretion Claims*: {g.agency_defense_rebuttal}",
@@ -95,7 +95,7 @@ def generate_formal_filing(
         ])
 
     filing_lines.extend([
-        "### IV. REQUEST FOR DOCUMENT PRODUCTION (4 C.F.R. § 21.3(c))",
+        "### IV. REQUEST FOR DOCUMENT PRODUCTION (4 C.F.R. 21.3(c))",
         "Protester requests that the Agency produce in its Agency Report:",
         "1. Complete, unredacted Technical Evaluation Team (TET) individual and consensus evaluation scorecards and worksheets.",
         f"2. Complete technical, staffing, past performance, and price proposal volumes submitted by {awd['name']}.",
@@ -105,9 +105,9 @@ def generate_formal_filing(
         "### V. PRAYER FOR RELIEF",
         "WHEREFORE, Protester respectfully requests that the Comptroller General:",
         "1. **SUSTAIN** this protest on all counts;",
-        "2. **RECOMMEND** that the Agency immediately suspend contract performance pursuant to 31 U.S.C. § 3553(d)(4);",
+        "2. **RECOMMEND** that the Agency immediately suspend contract performance pursuant to 31 U.S.C. 3553(d)(4);",
         f"3. **RECOMMEND** that the Agency re-evaluate proposals in accordance with the solicitation or terminate the award to {awd_short} and make award to {prot_short}; and",
-        "4. **AWARD** Protester its reasonable costs of filing and pursuing this protest, including reasonable attorneys' fees, pursuant to 4 C.F.R. § 21.8(d).",
+        "4. **RECOMMEND** that Protester be reimbursed its reasonable costs of filing and pursuing this protest, including reasonable attorneys' fees, pursuant to 4 C.F.R. 21.8(d).",
         "",
         "Respectfully submitted,",
         "",
@@ -122,7 +122,7 @@ def generate_formal_filing(
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(filing_text)
 
-    print(f"Formal GAO Protest Pleading successfully generated: {output_path}")
+    print(f"Formal GAO Protest Pleading generated: {output_path}")
     return filing_text
 
 
@@ -132,8 +132,8 @@ def main() -> None:
     parser.add_argument("--files", nargs="*", default=[], help="Additional explicit procurement files")
     parser.add_argument("--grounds-json", default=None, help="Optional JSON file with validated protest grounds")
     parser.add_argument("--output", default="output/gao_formal_protest_filing.md", help="Output path for filing")
-    parser.add_argument("--counsel", default="Jane Doe, Esq.", help="Name of filing attorney")
-    parser.add_argument("--firm", default="Sterling, Vance & Associates, LLP", help="Law firm name")
+    parser.add_argument("--counsel", default="Designated Protest Counsel", help="Name or title of filing counsel")
+    parser.add_argument("--firm", default="Procurement Legal Practice", help="Practice or organization name")
 
     args = parser.parse_args()
     generate_formal_filing(args.data, args.output, args.counsel, args.firm, args.files, args.grounds_json)

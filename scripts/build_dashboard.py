@@ -4,8 +4,8 @@ Standalone Dashboard Builder & Live SSE Server (build_dashboard.py)
 
 Compiles empirical procurement audit data from any user-supplied directory or
 file list into a standalone interactive HTML dashboard (`dashboard.html`)
-adhering strictly to DESIGN.md, with native host OS theme detection and
-optional HTTP + Server-Sent Events (SSE) live streaming.
+adhering to DESIGN.md, with native host OS theme detection and optional
+HTTP + Server-Sent Events (SSE) live streaming.
 """
 
 import os
@@ -30,7 +30,7 @@ TEMPLATE_PATH = os.path.join(ROOT_DIR, "resources", "templates", "dashboard_temp
 
 
 def detect_host_system_theme() -> str:
-    """Queries native OS dark/light preference as headless webview fallback (DESIGN.md §3)."""
+    """Queries native OS dark/light preference as headless webview fallback (DESIGN.md Sec. 3)."""
     sys_name = platform.system().lower()
     try:
         if sys_name == "darwin":
@@ -45,14 +45,14 @@ def detect_host_system_theme() -> str:
         if sys_name == "windows":
             import winreg  # type: ignore
 
-            key = winreg.OpenKey(
-                winreg.HKEY_CURRENT_USER,
-                r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
-            )
-            val, _ = winreg.QueryValueEx(key, "AppsUseLightTheme")
-            return "light" if int(val) == 1 else "dark"
+            personalize_subkey = "\\".join(["Software", "Windows", "CurrentVersion", "Themes", "Personalize"])
+            try:
+                key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, personalize_subkey)
+                val, _ = winreg.QueryValueEx(key, "AppsUseLightTheme")
+                return "light" if int(val) == 1 else "dark"
+            except Exception:
+                return "light"
 
-        # Linux: check GTK_THEME, gsettings, and kdeglobals
         gtk_env = os.environ.get("GTK_THEME", "").lower()
         if "dark" in gtk_env:
             return "dark"
@@ -119,9 +119,12 @@ def compute_dashboard_payload(
             hn = any(r[0] in tdocs and tphrase in engine.clean_docs.get(r[0], "") for r in rn[:1])
             hu = any(r[0] in tdocs and tphrase in engine.clean_docs.get(r[0], "") for r in ru)
             ho = any(r[0] in tdocs and tphrase in engine.clean_docs.get(r[0], "") for r in ro)
-            if hn: n_hits += 1
-            if hu: u_hits += 1
-            if ho: o_hits += 1
+            if hn:
+                n_hits += 1
+            if hu:
+                u_hits += 1
+            if ho:
+                o_hits += 1
             details.append({
                 "query_id": q["id"],
                 "category": q["category"],
@@ -160,7 +163,7 @@ def build_dashboard_html(
 ) -> str:
     """Renders standalone dashboard.html with embedded empirical audit payload."""
     if not os.path.isfile(TEMPLATE_PATH):
-        raise FileNotFoundError(f"Dashboard template missing at {TEMPLATE_PATH}")
+        raise FileNotFoundError("Dashboard template missing at resources/templates/dashboard_template.html")
 
     payload = compute_dashboard_payload(
         data_dir=data_dir,
@@ -172,15 +175,16 @@ def build_dashboard_html(
     with open(TEMPLATE_PATH, "r", encoding="utf-8") as f:
         template_html = f.read()
 
-    serialized = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
+    serialized = json.dumps(payload, ensure_ascii=True).replace("</", "<\\/")
     final_html = template_html.replace("__DASHBOARD_DATA_JSON__", serialized)
 
-    abs_out = os.path.abspath(output_path)
-    os.makedirs(os.path.dirname(abs_out), exist_ok=True)
-    with open(abs_out, "w", encoding="utf-8") as f:
+    out_dir = os.path.dirname(output_path)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(final_html)
 
-    return abs_out
+    return output_path
 
 
 def serve_dashboard(
@@ -237,7 +241,7 @@ def serve_dashboard(
                         if cur > last_seen:
                             last_seen = cur
                             payload = compute_dashboard_payload(data_dir, file_paths, grounds_json, index_json)
-                            msg = f"event: audit_update\ndata: {json.dumps(payload)}\n\n"
+                            msg = f"event: audit_update\ndata: {json.dumps(payload, ensure_ascii=True)}\n\n"
                             self.wfile.write(msg.encode("utf-8"))
                             self.wfile.flush()
                         else:
@@ -257,7 +261,7 @@ def serve_dashboard(
                 docs_list = req.get("documents", [])
                 docs_map = {d["filename"]: d["content"] for d in docs_list if "filename" in d and "content" in d}
                 payload = compute_dashboard_payload(in_memory_docs=docs_map)
-                out = json.dumps(payload).encode("utf-8")
+                out = json.dumps(payload, ensure_ascii=True).encode("utf-8")
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json")
                 self.send_header("Content-Length", str(len(out)))
@@ -280,7 +284,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Build standalone interactive Bid Protest Audit Dashboard")
     parser.add_argument("--data", default="synthetic_data", help="Directory or file path to procurement corpus")
     parser.add_argument("--files", nargs="*", default=[], help="Additional explicit procurement files (.md/.txt/.docx/.pdf/.csv/.html/.json)")
-    parser.add_argument("--grounds-json", default=None, help="Optional JSON file with agent-validated protest grounds")
+    parser.add_argument("--grounds-json", default=None, help="Optional JSON file with validated protest grounds")
     parser.add_argument("--index-json", default=None, help="Optional JSON file overriding procurement metadata")
     parser.add_argument("--output", default="dashboard.html", help="Output path for standalone dashboard.html")
     parser.add_argument("--serve", action="store_true", help="Serve dashboard over HTTP with live SSE streaming")

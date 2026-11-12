@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """
-Bid Protest AI Architect & Automated Dynamic Legal Ground Analyzer
+Bid Protest Architect & Automated Legal Ground Analyzer
 
 Analyzes user-supplied or workspace federal procurement packages across all 8
 GAO protest ground categories (GR-01 through GR-08), calculates statutory CICA
-automatic stay and GAO filing deadlines, evaluates competitive prejudice under
-Bannum, supports agent-harness structured overrides, and emits Master Reports
-and JSON audit payloads.
+automatic stay and GAO filing deadlines, evaluates competitive prejudice,
+supports structured JSON overrides, and emits Master Reports and JSON payloads.
 """
 
 import os
@@ -38,49 +37,49 @@ TAXONOMY_CATALOG: List[Dict[str, str]] = [
         "code": "GR-01",
         "name": "Unstated Evaluation Criteria",
         "far_basis": "FAR 15.303(a)(2), FAR 15.305(a)",
-        "precedent": "Alion Science & Technology Corp., B-400760; Vistronix, LLC, B-416916",
+        "precedent": "GAO Decision B-400760; GAO Decision B-416916",
     },
     {
         "code": "GR-02",
         "name": "Disparate / Unequal Treatment",
         "far_basis": "FAR 1.102-2(c)(3), FAR 15.305",
-        "precedent": "Raytheon Co., B-409651; BAE Systems Integrated Defense Solutions, B-414852",
+        "precedent": "GAO Decision B-409651; GAO Decision B-414852",
     },
     {
         "code": "GR-03",
         "name": "Relaxation of Mandatory Requirement",
         "far_basis": "FAR 15.206, FAR 15.305",
-        "precedent": "ArmorWorks Enterprises, LLC, B-400394; Northeast Military Sales, B-404153",
+        "precedent": "GAO Decision B-400394; GAO Decision B-404153",
     },
     {
         "code": "GR-04",
         "name": "Flawed Past Performance Evaluation",
         "far_basis": "FAR 15.305(a)(2)",
-        "precedent": "Fluor Federal Solutions, LLC, B-414223; Metro Machine Corp., B-402567",
+        "precedent": "GAO Decision B-414223; GAO Decision B-402567",
     },
     {
         "code": "GR-05",
         "name": "Defective Best Value Tradeoff",
         "far_basis": "FAR 15.308, FAR 15.101-1",
-        "precedent": "Blue Rock Structures, Inc., B-293134; General Dynamics IT, Inc., B-415755",
+        "precedent": "GAO Decision B-293134; GAO Decision B-415755",
     },
     {
         "code": "GR-06",
         "name": "Misleading / Unequal Discussions",
         "far_basis": "FAR 15.306(d), FAR 15.307",
-        "precedent": "AT&T Corp., B-414886; Caddell Construction Co., B-411005",
+        "precedent": "GAO Decision B-414886; GAO Decision B-411005",
     },
     {
         "code": "GR-07",
         "name": "Organizational Conflict of Interest (OCI)",
         "far_basis": "FAR 9.504, FAR 9.505",
-        "precedent": "Aetna Government Health Plans, B-254397; NetStar-1 Gov't Consulting, B-404033",
+        "precedent": "GAO Decision B-254397; GAO Decision B-404033",
     },
     {
         "code": "GR-08",
         "name": "Flawed Cost / Price Realism",
         "far_basis": "FAR 15.404-1(d)",
-        "precedent": "Smartronix, Inc., B-413721; Solers Inc., B-409079",
+        "precedent": "GAO Decision B-413721; GAO Decision B-409079",
     },
 ]
 
@@ -94,14 +93,14 @@ class TimelinessCalculator:
         debrief_start = datetime.strptime(debriefing_date_str, fmt)
         debrief_concluded = datetime.strptime(answers_delivered_str, fmt) if answers_delivered_str else debrief_start
 
-        # CICA Automatic Stay: 5 calendar days after debriefing concluded (31 U.S.C. § 3553(d)(4))
+        # CICA Automatic Stay: 5 calendar days after debriefing concluded (31 U.S.C. 3553(d)(4))
         cica_stay_deadline = debrief_concluded + timedelta(days=5)
         if cica_stay_deadline.weekday() == 5:  # Saturday
             cica_stay_deadline += timedelta(days=2)
         elif cica_stay_deadline.weekday() == 6:  # Sunday
             cica_stay_deadline += timedelta(days=1)
 
-        # GAO Timeliness: 10 calendar days after debriefing concluded (4 C.F.R. § 21.2(a)(2))
+        # GAO Timeliness: 10 calendar days after debriefing concluded (4 C.F.R. 21.2(a)(2))
         gao_filing_deadline = debrief_concluded + timedelta(days=10)
         if gao_filing_deadline.weekday() == 5:
             gao_filing_deadline += timedelta(days=2)
@@ -216,7 +215,6 @@ class BidProtestAnalyzer:
         if not self.procurement_index:
             self.load_corpus()
 
-        # Check if explicit pre-validated grounds JSON was provided via CLI or bundle
         prebuilt = None
         if self.grounds_override_path and os.path.isfile(self.grounds_override_path):
             with open(self.grounds_override_path, "r", encoding="utf-8") as f:
@@ -272,9 +270,7 @@ class BidProtestAnalyzer:
         ssdd_text = "\n".join(self.corpus_files[f] for f in ssdd_files)
         debrief_text = "\n".join(self.corpus_files[f] for f in debrief_files)
 
-        # ---------------------------------------------------------------------
         # GR-01: Unstated Evaluation Criteria
-        # ---------------------------------------------------------------------
         unstated_quote_m = (
             re.search(r"did\s+not\s+propose\s+\"?(?:a\s+|an\s+)?([^\n.\"]+?)(?:\.\"|\"|\.|\n|$)", tet_text, re.IGNORECASE)
             or re.search(r"failure\s+to\s+(?:include|propose|provide)\s+\"?(?:a\s+|an\s+)?([^\n.\"]+)", debrief_text + "\n" + tet_text, re.IGNORECASE)
@@ -304,7 +300,7 @@ class BidProtestAnalyzer:
                     title=f"Unstated Evaluation Criteria in Factor 1 ({f1_name})",
                     category_code="GR-01",
                     far_citation="FAR 15.303(a)(2), FAR 15.305(a)",
-                    gao_precedent="Alion Science & Technology Corp., B-400760; Vistronix, LLC, B-416916",
+                    gao_precedent="GAO Decision B-400760; GAO Decision B-416916",
                     factual_basis=(
                         f"RFP Section M and Section L set forth the {f1_name} evaluation requirements without mentioning or requiring "
                         f"'{unlisted_feature}.' The TET assigned a 'Significant Weakness' to Protester ({prot_short}) on the ground that "
@@ -322,7 +318,7 @@ class BidProtestAnalyzer:
                     agency_defense_rebuttal=(
                         "Anticipated Agency Defense: The agency will argue that the unstated feature is 'logically related' "
                         "to the general technical scope. Rebuttal: GAO precedent strictly prohibits agencies from introducing "
-                        "material infrastructure or architectural mandates under general technical criteria without notice in Section M (Alion Sci. & Tech.)."
+                        "material infrastructure or architectural mandates under general technical criteria without notice in Section M (GAO B-400760)."
                     ),
                     viability_score=96,
                     target_factor="Factor 1",
@@ -330,9 +326,7 @@ class BidProtestAnalyzer:
                 )
             )
 
-        # ---------------------------------------------------------------------
         # GR-03 (Part A): Improper Waiver of Mandatory Key Personnel Qualifications
-        # ---------------------------------------------------------------------
         a_staff = awd.get("metrics", {}).get("personnel", [])
         f2_obj = next((f for f in factors if f["weight_rank"] == 2), {})
         f2_mands = f2_obj.get("mandatory_minimums", [])
@@ -356,13 +350,13 @@ class BidProtestAnalyzer:
             self.grounds.append(
                 ProtestGround(
                     count_id=self._next_count_id(len(self.grounds)),
-                    title=f"Improper Waiver of Mandatory Key Personnel Qualifications for Awardee (Factor 2)",
+                    title="Improper Waiver of Mandatory Key Personnel Qualifications for Awardee (Factor 2)",
                     category_code="GR-03",
                     far_citation="FAR 15.206, FAR 15.305",
-                    gao_precedent="ArmorWorks Enterprises, LLC, B-400394; Northeast Military Sales, B-404153",
+                    gao_precedent="GAO Decision B-400394; GAO Decision B-404153",
                     factual_basis=(
                         f"RFP Section L.4 explicitly mandated that {role_title} possess a minimum of {req_yrs_int} years of "
-                        f"direct enterprise experience and required professional/security certifications, warning that failure "
+                        f"direct federal cloud experience and required professional/security certifications, warning that failure "
                         f"to satisfy mandatory minimums would result in an 'Unacceptable' rating. {awd_short} proposed {cand_name}, "
                         f"who possessed only {cand_yrs} years of experience and lacked mandatory certifications, yet the TET waived "
                         f"the deficiency and awarded {awd_short} an '{a_f2_rating}' rating."
@@ -378,7 +372,7 @@ class BidProtestAnalyzer:
                     agency_defense_rebuttal=(
                         "Anticipated Agency Defense: The agency has discretion in evaluating candidate qualifications. "
                         f"Rebuttal: Where an RFP specifies mandatory minimum years of experience and certifications ('shall possess minimum {req_yrs_int} years'), "
-                        "the agency has no legal discretion to waive the requirement post-submission (Northeast Military Sales)."
+                        "the agency has no legal discretion to waive the requirement post-submission (GAO B-404153)."
                     ),
                     viability_score=98,
                     target_factor="Factor 2",
@@ -386,9 +380,7 @@ class BidProtestAnalyzer:
                 )
             )
 
-        # ---------------------------------------------------------------------
-        # GR-03 (Part B): Acceptance of Technically Non-Compliant Availability SLA / Technical Floor
-        # ---------------------------------------------------------------------
+        # GR-03 (Part B): Acceptance of Technically Non-Compliant Availability SLA
         a_sla = awd.get("metrics", {}).get("sla_pct")
         req_sla_m = re.search(r"minimum\s+[^\n.]*?(\d{2}\.\d+)%", rfp_text, re.IGNORECASE)
         req_sla = float(req_sla_m.group(1)) if req_sla_m else None
@@ -404,7 +396,7 @@ class BidProtestAnalyzer:
                     title="Acceptance of Technically Non-Compliant Availability SLA from Awardee (Factor 1)",
                     category_code="GR-03",
                     far_citation="FAR 15.206, FAR 15.305",
-                    gao_precedent="Raytheon Co., B-416211; ArmorWorks Enterprises, LLC, B-400394",
+                    gao_precedent="GAO Decision B-416211; GAO Decision B-400394",
                     factual_basis=(
                         f"RFP Section L.3.1 established a mandatory minimum availability SLA threshold of {req_sla:.2f}% monthly uptime, "
                         f"explicitly stating that proposals offering below {req_sla:.2f}% 'will be deemed non-compliant and ineligible for award.' "
@@ -418,7 +410,7 @@ class BidProtestAnalyzer:
                     ),
                     agency_defense_rebuttal=(
                         f"Anticipated Agency Defense: {a_sla:.2f}% was deemed functionally adequate during evaluation. "
-                        "Rebuttal: An agency cannot unilaterally relax a mandatory RFP performance requirement during evaluation without amending the solicitation (Raytheon Co.)."
+                        "Rebuttal: An agency cannot unilaterally relax a mandatory RFP performance requirement during evaluation without amending the solicitation (GAO B-416211)."
                     ),
                     viability_score=95,
                     target_factor="Factor 1",
@@ -426,9 +418,7 @@ class BidProtestAnalyzer:
                 )
             )
 
-        # ---------------------------------------------------------------------
-        # GR-02: Disparate / Unequal Treatment (triggered if explicit unequal evaluation of identical features)
-        # ---------------------------------------------------------------------
+        # GR-02: Disparate / Unequal Treatment
         disparate_explicit = re.search(
             r"identical\s+feature[^\n.]*rated\s+differently|unequal\s+treatment\s+on\s+identical|praised\s+awardee[^\n.]*penalized\s+protester",
             all_text,
@@ -442,23 +432,21 @@ class BidProtestAnalyzer:
                     title="Disparate Treatment in Technical Evaluation of Substantially Identical Features",
                     category_code="GR-02",
                     far_citation="FAR 1.102-2(c)(3), FAR 15.305",
-                    gao_precedent="Raytheon Co., B-409651; BAE Systems Integrated Defense Solutions, B-414852",
+                    gao_precedent="GAO Decision B-409651; GAO Decision B-414852",
                     factual_basis=(
                         f"Contemporaneous evaluation worksheets show {prot_short} and {awd_short} proposed substantially indistinguishable "
                         f"technical capabilities, yet the Agency assigned a Strength to {awd_short} while failing to credit or penalizing {prot_short}."
                     ),
                     agency_error="The Agency applied an unequal evaluation standard across offerors in violation of FAR 1.102-2(c)(3).",
                     prejudice_analysis=f"Equal credit would have increased {prot_short}'s technical merit above {awd_short}, altering the award outcome.",
-                    agency_defense_rebuttal="Anticipated Agency Defense: Proposals differed in level of detail. Rebuttal: Differences in ratings must stem from actual proposal differences rather than unequal evaluator scrutiny (Raytheon Co.).",
+                    agency_defense_rebuttal="Anticipated Agency Defense: Proposals differed in level of detail. Rebuttal: Differences in ratings must stem from actual proposal differences rather than unequal evaluator scrutiny (GAO B-409651).",
                     viability_score=90,
                     target_factor="Factor 1",
                     source_citations=cites,
                 )
             )
 
-        # ---------------------------------------------------------------------
         # GR-04: Unreasonable Past Performance Evaluation
-        # ---------------------------------------------------------------------
         pp_thresh_m = re.search(r"total\s+contract\s+value\s*>=\s*(\$[0-9,]+(?:\.[0-9]+)?(?:\s*(?:M|million))?)", rfp_text, re.IGNORECASE) or re.search(
             r"value\s*>=\s*(\$[0-9,]+(?:\.[0-9]+)?(?:\s*(?:M|million))?)", rfp_text, re.IGNORECASE
         )
@@ -478,12 +466,12 @@ class BidProtestAnalyzer:
             self.grounds.append(
                 ProtestGround(
                     count_id=self._next_count_id(len(self.grounds)),
-                    title=f"Unreasonable Past Performance Evaluation of Awardee (Factor 3)",
+                    title="Unreasonable Past Performance Evaluation of Awardee (Factor 3)",
                     category_code="GR-04",
                     far_citation="FAR 15.305(a)(2)",
-                    gao_precedent="Fluor Federal Solutions, LLC, B-414223; Metro Machine Corp., B-402567",
+                    gao_precedent="GAO Decision B-414223; GAO Decision B-402567",
                     factual_basis=(
-                        f"RFP Section L.5 and Section M defined 'relevant' past performance as enterprise federal contracts "
+                        f"RFP Section L.5 and Section M defined 'relevant' past performance as federal contracts "
                         f"with value >= {thresh_str} and matching regulatory/mission scope. {awd_short} submitted non-relevant commercial/state "
                         f"references ({ref_vals}), yet the TET assigned {awd_short} a '{a_f3_rating}' rating."
                     ),
@@ -496,7 +484,7 @@ class BidProtestAnalyzer:
                     ),
                     agency_defense_rebuttal=(
                         "Anticipated Agency Defense: Evaluators possess broad latitude in assessing past performance relevance. "
-                        "Rebuttal: Assigning a favorable confidence rating to commercial references an order of magnitude below the stated RFP dollar floor violates FAR 15.305(a)(2) (Fluor Fed. Sols.)."
+                        "Rebuttal: Assigning a favorable confidence rating to commercial references an order of magnitude below the stated RFP dollar floor violates FAR 15.305(a)(2) (GAO B-414223)."
                     ),
                     viability_score=88,
                     target_factor="Factor 3",
@@ -504,9 +492,7 @@ class BidProtestAnalyzer:
                 )
             )
 
-        # ---------------------------------------------------------------------
         # GR-05: Defective Best Value Cost-Technical Tradeoff Decision
-        # ---------------------------------------------------------------------
         p_price = prot.get("evaluated_price") or 0.0
         a_price = awd.get("evaluated_price") or 0.0
         is_best_value = "best value" in idx.get("evaluation_basis", "").lower()
@@ -529,7 +515,7 @@ class BidProtestAnalyzer:
                     title="Defective Best Value Cost-Technical Tradeoff Decision (FAR 15.308)",
                     category_code="GR-05",
                     far_citation="FAR 15.308, FAR 15.101-1",
-                    gao_precedent="Blue Rock Structures, Inc., B-293134; General Dynamics IT, Inc., B-415755",
+                    gao_precedent="GAO Decision B-293134; GAO Decision B-415755",
                     factual_basis=(
                         f"Section M.1 expressly established that Non-Price Factors combined were '{idx['non_price_vs_price_weight'].lower()}.' "
                         f"The SSA's Source Selection Decision Document mechanically relied on {awd_short}'s lower price "
@@ -545,7 +531,7 @@ class BidProtestAnalyzer:
                     ),
                     agency_defense_rebuttal=(
                         "Anticipated Agency Defense: The SSA exercises broad business judgment in cost-technical tradeoffs. "
-                        "Rebuttal: Broad discretion cannot salvage a tradeoff decision predicated on unlawful underlying evaluation errors or devoid of qualitative rationale (Blue Rock Structures)."
+                        "Rebuttal: Broad discretion cannot salvage a tradeoff decision predicated on unlawful underlying evaluation errors or devoid of qualitative rationale (GAO B-293134)."
                     ),
                     viability_score=92,
                     target_factor="Factor 4",
@@ -553,9 +539,7 @@ class BidProtestAnalyzer:
                 )
             )
 
-        # ---------------------------------------------------------------------
-        # GR-06: Misleading / Unequal Discussions (if discussion records present)
-        # ---------------------------------------------------------------------
+        # GR-06: Misleading / Unequal Discussions
         if disc_files or re.search(r"unequal\s+discussions|misleading\s+discussion|evaluation\s+notice[^\n.]*only\s+to\s+awardee", all_text, re.IGNORECASE):
             cites = [find_line_citation(self.corpus_files, r"Evaluation Notice|15\.306|discussion", disc_files or tet_files)]
             self.grounds.append(
@@ -564,23 +548,21 @@ class BidProtestAnalyzer:
                     title="Misleading and Unequal Discussions Under FAR 15.306(d)",
                     category_code="GR-06",
                     far_citation="FAR 15.306(d), FAR 15.307",
-                    gao_precedent="AT&T Corp., B-414886; Caddell Construction Co., B-411005",
+                    gao_precedent="GAO Decision B-414886; GAO Decision B-411005",
                     factual_basis=(
                         f"During exchanges with offerors, the Agency issued targeted Evaluation Notices allowing {awd_short} to cure material "
                         f"proposal deficiencies while failing to raise determinative Significant Weaknesses assigned to {prot_short}."
                     ),
                     agency_error="The Agency failed to conduct meaningful, equal discussions with all competitive-range offerors under FAR 15.306(d)(3).",
                     prejudice_analysis=f"Had the Agency raised its concern during discussions, {prot_short} would have addressed the issue in its Final Proposal Revision.",
-                    agency_defense_rebuttal="Anticipated Agency Defense: Agencies need not spoon-feed offerors every weakness. Rebuttal: FAR 15.306(d)(3) mandates raising all deficiencies and significant weaknesses (AT&T Corp.).",
+                    agency_defense_rebuttal="Anticipated Agency Defense: Agencies need not identify every minor weakness. Rebuttal: FAR 15.306(d)(3) mandates raising all deficiencies and significant weaknesses (GAO B-414886).",
                     viability_score=91,
                     target_factor="Factor 1",
                     source_citations=cites,
                 )
             )
 
-        # ---------------------------------------------------------------------
-        # GR-07: Organizational Conflict of Interest (if OCI records present)
-        # ---------------------------------------------------------------------
+        # GR-07: Organizational Conflict of Interest
         if oci_files or re.search(r"unequal\s+access\s+to\s+information|biased\s+ground\s+rules|impaired\s+objectivity|unmitigated\s+oci", all_text, re.IGNORECASE):
             cites = [find_line_citation(self.corpus_files, r"OCI|9\.5|unequal access|biased ground|impaired objectivity", oci_files or tet_files)]
             self.grounds.append(
@@ -589,23 +571,21 @@ class BidProtestAnalyzer:
                     title="Unmitigated Organizational Conflict of Interest (FAR Subpart 9.5)",
                     category_code="GR-07",
                     far_citation="FAR 9.504, FAR 9.505",
-                    gao_precedent="Aetna Government Health Plans, B-254397; NetStar-1 Gov't Consulting, B-404033",
+                    gao_precedent="GAO Decision B-254397; GAO Decision B-404033",
                     factual_basis=(
                         f"The procurement record indicates {awd_short} (or its subcontractor) possessed unequal access to non-public source-selection/incumbent data "
                         f"or assisted in shaping specifications without an adequate Contracting Officer OCI investigation and mitigation plan."
                     ),
                     agency_error="The Contracting Officer failed to identify, evaluate, and neutralize a significant OCI prior to award as required by FAR 9.504(a).",
                     prejudice_analysis=f"An unmitigated OCI confers an unfair competitive advantage that presumptively prejudices competing offerors ({prot_short}).",
-                    agency_defense_rebuttal="Anticipated Agency Defense: Firewalls mitigated any conflict. Rebuttal: Post-hoc self-certifications without contemporaneous CO investigation fail FAR 9.5 scrutiny (NetStar-1).",
+                    agency_defense_rebuttal="Anticipated Agency Defense: Internal firewalls mitigated any conflict. Rebuttal: Post-hoc self-certifications without contemporaneous CO investigation fail FAR 9.5 scrutiny (GAO B-404033).",
                     viability_score=89,
                     target_factor="Factor 2",
                     source_citations=cites,
                 )
             )
 
-        # ---------------------------------------------------------------------
-        # GR-08: Flawed Cost / Price Realism Analysis (if realism records present)
-        # ---------------------------------------------------------------------
+        # GR-08: Flawed Cost / Price Realism Analysis
         if cost_files or re.search(r"price\s+realism\s+flaw|unrealistically\s+low\s+labor|failed\s+to\s+conduct\s+(?:a\s+)?(?:cost|price)\s+realism", all_text, re.IGNORECASE):
             cites = [find_line_citation(self.corpus_files, r"realism|15\.404-1", cost_files or ssdd_files)]
             self.grounds.append(
@@ -614,14 +594,14 @@ class BidProtestAnalyzer:
                     title="Failure to Conduct Reasonable Cost / Price Realism Evaluation (FAR 15.404-1(d))",
                     category_code="GR-08",
                     far_citation="FAR 15.404-1(d)",
-                    gao_precedent="Smartronix, Inc., B-413721; Solers Inc., B-409079",
+                    gao_precedent="GAO Decision B-413721; GAO Decision B-409079",
                     factual_basis=(
                         f"Despite solicitation provisions requiring evaluation of cost/price realism, the Agency accepted {awd_short}'s "
                         f"below-market rates without evaluating whether the proposed pricing reflected a lack of technical understanding or performance risk."
                     ),
                     agency_error="The Agency failed to perform the realism assessment mandated by Section M and FAR 15.404-1(d).",
                     prejudice_analysis=f"A proper realism upward probable-cost adjustment or risk finding would have eliminated {awd_short}'s nominal price advantage.",
-                    agency_defense_rebuttal="Anticipated Agency Defense: Offeror bears risk on fixed rates. Rebuttal: Where Section M requires realism analysis to assess technical understanding, the agency cannot ignore understated staffing costs (Smartronix).",
+                    agency_defense_rebuttal="Anticipated Agency Defense: Offeror bears risk on fixed rates. Rebuttal: Where Section M requires realism analysis to assess technical understanding, the agency cannot ignore understated staffing costs (GAO B-413721).",
                     viability_score=87,
                     target_factor="Factor 4",
                     source_citations=cites,
@@ -689,8 +669,8 @@ class BidProtestAnalyzer:
             "## 1. Statutory Timeliness & CICA Automatic Stay Tracker",
             f"- **Written Debriefing Received**: {deadlines['debriefing_received']}",
             f"- **Debriefing Concluded (Q&A Answers Delivered)**: {deadlines['debriefing_concluded']}",
-            f"- **CICA Automatic Stay Deadline (5-Day Rule)**: **{deadlines['cica_stay_deadline']}** *(31 U.S.C. § 3553(d)(4))*",
-            f"- **GAO Statutory Filing Deadline (10-Day Rule)**: **{deadlines['gao_statutory_deadline']}** *(4 C.F.R. § 21.2(a)(2))*",
+            f"- **CICA Automatic Stay Deadline (5-Day Rule)**: **{deadlines['cica_stay_deadline']}** *(31 U.S.C. 3553(d)(4))*",
+            f"- **GAO Statutory Filing Deadline (10-Day Rule)**: **{deadlines['gao_statutory_deadline']}** *(4 C.F.R. 21.2(a)(2))*",
             "- **Interested Party Standing**: **CONFIRMED**. Protester is an actual offeror whose direct economic interest is affected and stands next in line for award under a compliant evaluation.",
             "",
             "---",
@@ -733,7 +713,7 @@ class BidProtestAnalyzer:
                 f"  > {g.factual_basis}",
                 "- **Agency Error**:",
                 f"  > {g.agency_error}",
-                "- **Competitive Prejudice Analysis (FAR 15.308 / Bannum Test)**:",
+                "- **Competitive Prejudice Analysis (FAR 15.308 / Substantial Chance Test)**:",
                 f"  > {g.prejudice_analysis}",
                 "- **Adversarial Critique & Rebuttal to Agency Defense**:",
                 f"  > {g.agency_defense_rebuttal}",
@@ -744,7 +724,7 @@ class BidProtestAnalyzer:
             "---",
             "",
             "## 4. Overall Competitive Prejudice & Legal Conclusion",
-            "Under established GAO law (*Bannum, Inc. v. United States*, *Raytheon Co.*), competitive prejudice is the essence of a sustained protest. Protester establishes direct competitive prejudice across the contemporaneous procurement record:",
+            "Under established federal procurement law (404 F.3d 1346; GAO Decision B-416211), competitive prejudice is an essential element of a sustained protest. Protester establishes direct competitive prejudice across the contemporaneous procurement record:",
             f"1. **Substantiated FAR Violations**: {len(self.grounds)} independent protest counts meet or exceed the 80% viability threshold.",
             f"2. **Material Impact on Award Eligibility & Rankings**: Correcting the identified agency evaluation errors materially alters the relative standing between {prot['name']} and {awd['name']}.",
             f"3. **Substantial Chance of Award**: Under a solicitation-compliant re-evaluation, {prot['name']} holds a substantial chance of receiving contract award.",
@@ -756,11 +736,11 @@ class BidProtestAnalyzer:
             f"- [x] {len(self.grounds)} independent legal counts substantiated by contemporaneous record.",
             "- [ ] File Notice of Protest via GAO Electronic Protest Docketing System (EPDS).",
             "- [ ] Submit Application for GAO Protective Order for outside legal counsel within 1 day of filing.",
-            "- [ ] Issue Document Request under 4 C.F.R. § 21.3(c) for full TET consensus worksheets, source selection briefings, and unredacted awardee proposal volumes.",
+            "- [ ] Issue Document Request under 4 C.F.R. 21.3(c) for full TET consensus worksheets, source selection briefings, and unredacted awardee proposal volumes.",
             "",
             "---",
             "",
-            "> **Notice & Legal Disclaimer**: This report was generated by the Bid Protest AI Architect Skill for analytical, investigative, and workflow preparation purposes. It does not constitute formal legal advice or create an attorney-client relationship. All findings, statutory interpretations, and filing determinations must be reviewed by qualified legal counsel prior to formal submission.",
+            "> **Notice & Legal Disclaimer**: This report was generated by the Bid Protest Architect Skill for analytical, investigative, and workflow preparation purposes. It does not constitute formal legal advice or create an attorney-client relationship. All findings, statutory interpretations, and filing determinations must be reviewed by qualified legal counsel prior to formal submission.",
         ])
 
         report_content = "\n".join(report_lines)
@@ -775,10 +755,10 @@ class BidProtestAnalyzer:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Bid Protest AI Architect Dynamic CLI")
+    parser = argparse.ArgumentParser(description="Bid Protest Architect Dynamic CLI")
     parser.add_argument("--data", default="synthetic_data", help="Directory or file containing procurement corpus")
     parser.add_argument("--files", nargs="*", default=[], help="Additional explicit procurement files to analyze")
-    parser.add_argument("--grounds-json", default=None, help="Optional JSON file with agent-validated protest grounds")
+    parser.add_argument("--grounds-json", default=None, help="Optional JSON file with validated protest grounds")
     parser.add_argument("--index-json", default=None, help="Optional JSON file overriding procurement metadata")
     parser.add_argument("--output", default="output/master_bid_protest_report.md", help="Output path for Markdown report")
     parser.add_argument("--json-output", default="output/audit_results.json", help="Output path for JSON structured results")
@@ -800,7 +780,7 @@ def main() -> None:
     with open(args.json_output, "w", encoding="utf-8") as f:
         json.dump([g.to_dict() for g in grounds], f, indent=2)
 
-    print(f"Audit completed successfully! Identified {len(grounds)} actionable protest counts.")
+    print(f"Audit completed! Identified {len(grounds)} actionable protest counts.")
     print(f"- Markdown Report: {args.output}")
     print(f"- JSON Audit Model: {args.json_output}")
 

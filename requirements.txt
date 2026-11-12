@@ -1,5 +1,2 @@
-# Core dependencies (Standard library is primarily used for zero-dependency portability)
-# Optional Google Cloud SDK for live Vertex AI Search API execution:
-# google-cloud-discoveryengine>=0.11.0
-# google-adk>=1.21.0
+# Test suite dependency (core runtime scripts use the Python standard library)
 pytest>=7.0.0

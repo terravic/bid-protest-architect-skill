@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bid Protest Procurement Audit — Interactive Evidentiary Workspace</title>
+  <title>Bid Protest Procurement Audit -- Interactive Evidentiary Workspace</title>
   <meta name="description" content="Federal procurement bid protest cross-examination workspace: statutory CICA deadlines, Section L/M mandatory compliance, 8-ground FAR/GAO audit, 3D evidentiary provenance map, and client-side multi-document ingestion." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+
   <style>
     :root,
     [data-theme="light"] {
@@ -529,7 +528,7 @@
       user-select: none;
     }
 
-    .node-map-stage canvas {
+    .node-map-stage .map-surface {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -537,9 +536,9 @@
       display: block;
     }
 
-    #node-webgl-canvas { z-index: 1; }
-    #node-overlay-canvas { z-index: 2; cursor: grab; }
-    #node-overlay-canvas:active { cursor: grabbing; }
+    #node-webgl-surface { z-index: 1; }
+    #node-overlay-surface { z-index: 2; cursor: grab; }
+    #node-overlay-surface:active { cursor: grabbing; }
 
     .map-legend {
       position: absolute;
@@ -817,7 +816,7 @@
       <div class="solicitation-meta">
         <span id="header-sol-id">HHS-CMS-2026-CLOUD-009</span>
         <span class="meta-sep">/</span>
-        <span id="header-agency">HHS · CMS</span>
+        <span id="header-agency">HHS | CMS</span>
         <span class="meta-sep">/</span>
         <span id="header-doc-count">6 DOCS INDEXED</span>
         <span class="meta-sep">/</span>
@@ -888,7 +887,7 @@
         <div class="drawer-col">
           <div id="corpus-dropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload procurement files">
             <div style="font-weight:600; margin-bottom:4px;">Drop procurement files here or click to select</div>
-            <div class="mono tone-muted" style="font-size:11px;">Supports multiple files: .md · .txt · .docx · .pdf · .csv · .html · .json</div>
+            <div class="mono tone-muted" style="font-size:11px;">Supports multiple files: .md | .txt | .docx | .pdf | .csv | .html | .json</div>
             <input id="corpus-file-input" type="file" multiple accept=".md,.txt,.json,.csv,.tsv,.html,.htm,.xml,.docx,.pdf" style="display:none;" />
           </div>
           <div id="staged-files-container" class="staged-file-list" aria-live="polite"></div>
@@ -972,15 +971,15 @@
           <span id="kpi-counts-ratio" class="mono tone-muted" style="font-size:12px;">5 Sustained Counts</span>
         </div>
         <div class="kpi-detail">
-          <span id="kpi-bannum-state">Bannum Prejudice: ESTABLISHED</span>
-          <span id="kpi-range-score">Range: 88%–98%</span>
+          <span id="kpi-prejudice-state">Competitive Prejudice: ESTABLISHED</span>
+          <span id="kpi-range-score">Range: 88%-98%</span>
         </div>
       </section>
 
       <section class="bento-cell span-3 kpi-cell" aria-label="Statutory CICA Stay Tracker">
         <div class="kpi-label">
           <span>CICA Automatic Stay Window</span>
-          <span class="mono tone-amber" style="font-size:11px;">31 U.S.C. § 3553(d)(4)</span>
+          <span class="mono tone-amber" style="font-size:11px;">31 U.S.C. Sec. 3553(d)(4)</span>
         </div>
         <div class="kpi-value-row">
           <span id="kpi-cica-date" class="kpi-figure">2026-08-19</span>
@@ -1014,7 +1013,7 @@
           <span id="kpi-waiver-count" class="mono tone-rose" style="font-size:12px;">5 Material Flaws</span>
         </div>
         <div class="kpi-detail">
-          <span id="kpi-standing-party">Standing: 4 C.F.R. § 21.0(a)(1)</span>
+          <span id="kpi-standing-party">Standing: 4 C.F.R. Sec. 21.0(a)(1)</span>
           <span id="kpi-weight-rule">Non-Price &gt;&gt; Price</span>
         </div>
       </section>
@@ -1024,7 +1023,7 @@
         <div class="cell-header">
           <div class="cell-title-group">
             <h2 class="cell-title">Interactive Relationship Node Map</h2>
-            <span class="cell-subtitle">3-tier spatial provenance topology: Solicitation Clauses → Proposal &amp; TET Record → Sustained Protest Counts</span>
+            <span class="cell-subtitle">3-tier spatial provenance topology: Solicitation Clauses -> Proposal &amp; TET Record -> Sustained Protest Counts</span>
           </div>
           <div class="segmented-group" aria-label="3D Camera View Presets">
             <button type="button" class="seg-btn active" data-cam-preset="iso">Isometric</button>
@@ -1034,8 +1033,8 @@
           </div>
         </div>
         <div id="node-map-stage" class="node-map-stage">
-          <canvas id="node-webgl-canvas"></canvas>
-          <canvas id="node-overlay-canvas"></canvas>
+          <canvas id="node-webgl-surface" class="map-surface"></canvas>
+          <canvas id="node-overlay-surface" class="map-surface"></canvas>
           <div class="map-legend">
             <span class="legend-item"><span class="legend-dot" style="background:#4F46E5;"></span>RFP Clause</span>
             <span class="legend-item"><span class="legend-dot" style="background:#0D9488;"></span>Protester Record</span>
@@ -1043,7 +1042,7 @@
             <span class="legend-item"><span class="legend-dot" style="background:#059669;"></span>Sustained Count</span>
             <span class="legend-item"><span class="legend-dot" style="background:#D97706;"></span>Tradeoff Link</span>
           </div>
-          <div id="node-renderer-hud" class="map-hud">3D WebGL · Drag to orbit · Scroll to zoom</div>
+          <div id="node-renderer-hud" class="map-hud">3D WebGL | Drag to orbit | Scroll to zoom</div>
           <div id="node-tooltip" class="node-tooltip"></div>
         </div>
       </section>
@@ -1062,7 +1061,7 @@
         <div class="chart-stage">
           <div id="tradeoff-svg-container" class="chart-svg-wrap"></div>
           <div class="chart-footnote">
-            <span id="chart-foot-left">Scale: 5=Outstanding · 4=Good · 3=Acceptable · 1=Unacceptable</span>
+            <span id="chart-foot-left">Scale: 5=Outstanding | 4=Good | 3=Acceptable | 1=Unacceptable</span>
             <span id="chart-foot-right">FAR 15.305 / FAR 15.308</span>
           </div>
         </div>
@@ -1119,7 +1118,7 @@
         </div>
         <div class="sub-header cell-divider">
           <span>Corpus Search Retrieval Benchmark</span>
-          <span id="rag-summary-metric" class="mono tone-emerald" style="font-size:11px;">Naive 20.0% → Legal RAG 100.0%</span>
+          <span id="rag-summary-metric" class="mono tone-emerald" style="font-size:11px;">Naive 20.0% -> Legal RAG 100.0%</span>
         </div>
         <div class="cell-body flush table-scroll">
           <table class="data-table" id="diagnostics-table">
@@ -1167,7 +1166,7 @@
         <div class="cell-header">
           <div class="cell-title-group">
             <h2 class="cell-title" id="inspector-heading">Contemporaneous Record Inspector</h2>
-            <span class="cell-subtitle" id="inspector-subheading">Verbatim factual basis, Bannum prejudice, and agency defense rebuttal</span>
+            <span class="cell-subtitle" id="inspector-subheading">Verbatim factual basis, competitive prejudice, and agency defense rebuttal</span>
           </div>
           <div class="segmented-group" role="tablist" aria-label="Inspector Mode">
             <button type="button" class="seg-btn active" data-inspector-tab="evidence">Legal Proof</button>
@@ -1350,7 +1349,7 @@
         // Top Bar
         document.getElementById('header-program-title').textContent = idx.program_title || 'Procurement Protest Audit';
         document.getElementById('header-sol-id').textContent = idx.solicitation_id || 'SOL-ACTIVE';
-        document.getElementById('header-agency').textContent = (idx.issuing_agency || 'Federal Agency').replace('Department of Health and Human Services (HHS) / Centers for Medicare & Medicaid Services (CMS)', 'HHS · CMS');
+        document.getElementById('header-agency').textContent = (idx.issuing_agency || 'Federal Agency').replace('Department of Health and Human Services (HHS) / Centers for Medicare & Medicaid Services (CMS)', 'HHS | CMS');
         document.getElementById('header-doc-count').textContent = docs.length + ' DOCS INDEXED';
 
         // KPI 1: Composite Viability
@@ -1366,8 +1365,8 @@
         flagEl.textContent = avgViability >= 80 ? 'RECOMMENDED' : 'REVIEW';
         flagEl.className = 'state-flag ' + (avgViability >= 80 ? 'state-pass' : 'state-warn');
         document.getElementById('kpi-counts-ratio').textContent = grounds.length + ' Sustained Count' + (grounds.length === 1 ? '' : 's');
-        document.getElementById('kpi-bannum-state').textContent = grounds.length ? 'Bannum Prejudice: ESTABLISHED' : 'Bannum Prejudice: PENDING';
-        document.getElementById('kpi-range-score').textContent = grounds.length ? ('Range: ' + minV + '%–' + maxV + '%') : 'No Violations';
+        document.getElementById('kpi-prejudice-state').textContent = grounds.length ? 'Competitive Prejudice: ESTABLISHED' : 'Competitive Prejudice: PENDING';
+        document.getElementById('kpi-range-score').textContent = grounds.length ? ('Range: ' + minV + '%-' + maxV + '%') : 'No Violations';
 
         // KPI 2: Statutory Deadlines
         const dl = d.deadlines || {};
@@ -1425,7 +1424,7 @@
         renderTradeoffSVG();
 
         document.getElementById('footer-provenance-stamp').textContent =
-          'Solicitation ' + (idx.solicitation_id || 'N/A') + ' · ' + docs.length + ' Corpus Records · ' + grounds.length + ' Validated Counts';
+          'Solicitation ' + (idx.solicitation_id || 'N/A') + ' | ' + docs.length + ' Corpus Records | ' + grounds.length + ' Validated Counts';
       }
 
       function renderComplianceTable(rows, pShort, aShort) {
@@ -1447,7 +1446,7 @@
           if (fn.includes('debrief')) return 'Debrief' + ln;
           if (fn.includes('nexus') || fn.includes('awardee')) return 'AwdProp' + ln;
           if (fn.includes('apex') || fn.includes('protester')) return 'ProtProp' + ln;
-          return (parts[0].length > 12 ? parts[0].slice(0, 11) + '…' : parts[0]) + ln;
+          return (parts[0].length > 12 ? parts[0].slice(0, 11) + '...' : parts[0]) + ln;
         };
 
         const tbody = document.getElementById('compliance-tbody');
@@ -1500,7 +1499,7 @@
             '<td>' + escapeHtml(t.name) + '</td>' +
             '<td class="tone-muted">' + escapeHtml(t.far_basis) + '</td>' +
             '<td class="num">' + escapeHtml(countLabel) + '</td>' +
-            '<td class="num" style="font-weight:600;">' + (score > 0 ? (score + '%') : '—') + '</td>' +
+            '<td class="num" style="font-weight:600;">' + (score > 0 ? (score + '%') : '--') + '</td>' +
           '</tr>';
         }).join('');
 
@@ -1524,7 +1523,7 @@
         const details = diag.details || [];
         const nAcc = diag.naive ? diag.naive.accuracy.toFixed(1) : '0.0';
         const oAcc = diag.optimized ? diag.optimized.accuracy.toFixed(1) : '100.0';
-        document.getElementById('rag-summary-metric').textContent = 'Naive ' + nAcc + '% → Legal RAG ' + oAcc + '%';
+        document.getElementById('rag-summary-metric').textContent = 'Naive ' + nAcc + '% -> Legal RAG ' + oAcc + '%';
 
         const tbody = document.getElementById('diagnostics-tbody');
         tbody.innerHTML = details.map(function (d) {
@@ -1657,14 +1656,14 @@
         }
 
         if (AppState.inspectorTab === 'discovery') {
-          document.getElementById('inspector-heading').textContent = 'GAO EPDS & 4 C.F.R. § 21.3(c) Discovery';
+          document.getElementById('inspector-heading').textContent = 'GAO EPDS & 4 C.F.R. Sec. 21.3(c) Discovery';
           document.getElementById('inspector-subheading').textContent = 'Statutory document production and protective order workflow';
           const awdName = (idx.offerors && idx.offerors.awardee && idx.offerors.awardee.name) || 'Awardee';
           const items = [
             { id: 'chk-stay', text: 'Verify filing prior to 5-day CICA Automatic Stay deadline (' + ((AppState.data.deadlines && AppState.data.deadlines.cica_stay_deadline) || '5:00 PM EST') + ').' },
-            { id: 'chk-epds', text: 'Docket formal Bid Protest pleading via GAO Electronic Protest Docketing System (EPDS) under 4 C.F.R. § 21.1.' },
+            { id: 'chk-epds', text: 'Docket formal Bid Protest pleading via GAO Electronic Protest Docketing System (EPDS) under 4 C.F.R. Sec. 21.1.' },
             { id: 'chk-po', text: 'File Counsel Application for Admission to GAO Protective Order within 24 hours of docketing.' },
-            { id: 'chk-tet', text: 'Request complete unredacted TET individual evaluator worksheets and consensus scorecards (4 C.F.R. § 21.3(c)).' },
+            { id: 'chk-tet', text: 'Request complete unredacted TET individual evaluator worksheets and consensus scorecards (4 C.F.R. Sec. 21.3(c)).' },
             { id: 'chk-prop', text: 'Request unredacted Technical, Key Personnel, Past Performance, and Price volumes submitted by ' + awdName + '.' },
             { id: 'chk-ssac', text: 'Request SSAC briefing slides, tradeoff workpapers, and contemporaneous price/discussions/OCI memoranda.' }
           ];
@@ -1692,8 +1691,8 @@
           return;
         }
 
-        document.getElementById('inspector-heading').textContent = g.count_id + ' · ' + g.category_code + ' (' + g.viability_score + '% Viability)';
-        document.getElementById('inspector-subheading').textContent = g.far_citation + ' · ' + g.gao_precedent;
+        document.getElementById('inspector-heading').textContent = g.count_id + ' | ' + g.category_code + ' (' + g.viability_score + '% Viability)';
+        document.getElementById('inspector-subheading').textContent = g.far_citation + ' | ' + g.gao_precedent;
 
         const cites = (g.source_citations || []).map(function (c) {
           return '<button type="button" class="seg-btn" data-jump-cite="' + escapeHtml(c) + '" style="border:1px solid var(--border);">' + escapeHtml(c) + '</button>';
@@ -1706,7 +1705,7 @@
             (cites ? '<div style="margin-top:6px; display:flex; gap:6px; flex-wrap:wrap;">' + cites + '</div>' : '') +
           '</div>' +
           '<div class="inspector-section">' +
-            '<div class="inspector-kicker"><span>Agency FAR Violation &amp; Bannum Prejudice</span><span class="tone-emerald">Substantial Chance</span></div>' +
+            '<div class="inspector-kicker"><span>Agency FAR Violation &amp; Competitive Prejudice</span><span class="tone-emerald">Substantial Chance</span></div>' +
             '<p class="inspector-prose" style="margin-bottom:6px;">' + escapeHtml(g.agency_error) + '</p>' +
             '<p class="inspector-prose tone-muted">' + escapeHtml(g.prejudice_analysis) + '</p>' +
           '</div>' +
@@ -1754,7 +1753,7 @@
         const H = 300;
 
         if (AppState.chartMode === 'shift') {
-          document.getElementById('chart-foot-left').textContent = 'Scale: 5=Outstanding · 4=Good · 3=Acceptable · 1=Unacceptable';
+          document.getElementById('chart-foot-left').textContent = 'Scale: 5=Outstanding | 4=Good | 3=Acceptable | 1=Unacceptable';
           const padL = 108, padR = 26, padT = 30, padB = 34;
           const plotW = W - padL - padR;
           const plotH = H - padT - padB;
@@ -1770,9 +1769,9 @@
           // Legend
           svg += '<g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="' + textSec + '">' +
             '<circle cx="' + padL + '" cy="13" r="4" fill="#0D9488"/>' +
-            '<text x="' + (padL + 9) + '" y="17" fill="' + textPri + '">' + escapeHtml(pShort) + ' (As-Eval → Lawful)</text>' +
+            '<text x="' + (padL + 9) + '" y="17" fill="' + textPri + '">' + escapeHtml(pShort) + ' (As-Eval -> Lawful)</text>' +
             '<circle cx="' + (padL + 205) + '" cy="13" r="4" fill="#E11D48"/>' +
-            '<text x="' + (padL + 214) + '" y="17" fill="' + textPri + '">' + escapeHtml(aShort) + ' (As-Eval → Lawful)</text>' +
+            '<text x="' + (padL + 214) + '" y="17" fill="' + textPri + '">' + escapeHtml(aShort) + ' (As-Eval -> Lawful)</text>' +
           '</g>';
 
           // Vertical quantitative gridlines
@@ -1898,8 +1897,8 @@
             Deterministic coordinates; zero forbidden words anywhere.
       ===================================================================== */
       const NodeMapEngine = (function () {
-        const glCanvas = document.getElementById('node-webgl-canvas');
-        const ovCanvas = document.getElementById('node-overlay-canvas');
+        const glSurface = document.getElementById('node-webgl-surface');
+        const ovSurface = document.getElementById('node-overlay-surface');
         const stage = document.getElementById('node-map-stage');
         const hud = document.getElementById('node-renderer-hud');
         const tooltip = document.getElementById('node-tooltip');
@@ -1917,14 +1916,14 @@
 
         function initWebGL() {
           try {
-            gl = glCanvas.getContext('webgl', { antialias: true, alpha: true }) ||
-                 glCanvas.getContext('experimental-webgl', { antialias: true, alpha: true });
+            gl = glSurface.getContext('webgl', { antialias: true, alpha: true }) ||
+                 glSurface.getContext('experimental-webgl', { antialias: true, alpha: true });
           } catch (_) {
             gl = null;
           }
           if (!gl) {
             usingWebGL = false;
-            hud.textContent = '2D Projection Fallback · Drag to orbit · Scroll to zoom';
+            hud.textContent = '2D Projection Fallback | Drag to orbit | Scroll to zoom';
             return;
           }
 
@@ -1971,7 +1970,7 @@
           const fs = compile(gl.FRAGMENT_SHADER, fsSrc);
           if (!vs || !fs) {
             usingWebGL = false;
-            hud.textContent = '2D Projection Fallback · Drag to orbit · Scroll to zoom';
+            hud.textContent = '2D Projection Fallback | Drag to orbit | Scroll to zoom';
             return;
           }
 
@@ -1988,7 +1987,7 @@
           glColBuf = gl.createBuffer();
           glSizeBuf = gl.createBuffer();
           usingWebGL = true;
-          hud.textContent = '3D WebGL Active · Drag to orbit · Scroll to zoom';
+          hud.textContent = '3D WebGL Active | Drag to orbit | Scroll to zoom';
         }
 
         function rebuildFromData() {
@@ -2041,7 +2040,7 @@
             nodes.push({
               id: nid,
               label: r.clause_ref || r.id,
-              detail: r.requirement + ' · ' + pShort + ': ' + r.protester_value + ' | ' + aShort + ': ' + r.awardee_value,
+              detail: r.requirement + ' | ' + pShort + ': ' + r.protester_value + ' | ' + aShort + ': ' + r.awardee_value,
               tier: 'Evaluation Record',
               factor: r.factor,
               category_code: r.category_code,
@@ -2132,7 +2131,7 @@
           const h = Math.max(200, Math.floor(rect.height));
           const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-          [glCanvas, ovCanvas].forEach(function (cv) {
+          [glSurface, ovSurface].forEach(function (cv) {
             if (cv.width !== w * dpr || cv.height !== h * dpr) {
               cv.width = w * dpr;
               cv.height = h * dpr;
@@ -2234,8 +2233,8 @@
             }
           }
 
-          // 2D Overlay Canvas: Labels, selection rings, AND full software projection fallback when !usingWebGL
-          const ctx = ovCanvas.getContext('2d');
+          // 2D Overlay Surface: Labels, selection rings, AND full software projection fallback when !usingWebGL
+          const ctx = ovSurface.getContext('2d');
           ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
           ctx.clearRect(0, 0, w, h);
 
@@ -2246,9 +2245,9 @@
           // Subtle tier elevation reference guides
           ctx.font = '500 10px "IBM Plex Mono", monospace';
           ctx.fillStyle = textSec;
-          ctx.fillText('TIER 1 · SOLICITATION (L/M)', 12, 20);
-          ctx.fillText('TIER 2 · EVALUATION RECORD', 12, Math.round(h * 0.49));
-          ctx.fillText('TIER 3 · SUSTAINED COUNTS', 12, h - 38);
+          ctx.fillText('TIER 1 | SOLICITATION (L/M)', 12, 20);
+          ctx.fillText('TIER 2 | EVALUATION RECORD', 12, Math.round(h * 0.49));
+          ctx.fillText('TIER 3 | SUSTAINED COUNTS', 12, h - 38);
 
           if (!usingWebGL) {
             edges.forEach(function (e) {
@@ -2312,20 +2311,20 @@
         }
 
         function bindInteractions() {
-          if (!ovCanvas) return;
+          if (!ovSurface) return;
           let moved = false;
 
-          ovCanvas.addEventListener('pointerdown', function (ev) {
+          ovSurface.addEventListener('pointerdown', function (ev) {
             AppState.camera.dragging = true;
             AppState.camera.shiftDrag = ev.shiftKey || ev.button === 2;
             AppState.camera.lastX = ev.clientX;
             AppState.camera.lastY = ev.clientY;
             moved = false;
-            ovCanvas.setPointerCapture(ev.pointerId);
+            ovSurface.setPointerCapture(ev.pointerId);
           });
 
-          ovCanvas.addEventListener('pointermove', function (ev) {
-            const rect = ovCanvas.getBoundingClientRect();
+          ovSurface.addEventListener('pointermove', function (ev) {
+            const rect = ovSurface.getBoundingClientRect();
             const lx = ev.clientX - rect.left;
             const ly = ev.clientY - rect.top;
 
@@ -2353,17 +2352,17 @@
               tooltip.style.left = Math.min(rect.width - 250, Math.max(10, lx + 12)) + 'px';
               tooltip.style.top = Math.min(rect.height - 80, Math.max(10, ly + 12)) + 'px';
               tooltip.innerHTML =
-                '<div class="mono" style="font-weight:600; font-size:11px; margin-bottom:2px;">' + escapeHtml(hit.label) + ' · ' + escapeHtml(hit.tier) + '</div>' +
+                '<div class="mono" style="font-weight:600; font-size:11px; margin-bottom:2px;">' + escapeHtml(hit.label) + ' | ' + escapeHtml(hit.tier) + '</div>' +
                 '<div style="color:var(--text-secondary);">' + escapeHtml(hit.detail) + '</div>';
             } else {
               tooltip.style.display = 'none';
             }
           });
 
-          ovCanvas.addEventListener('pointerup', function (ev) {
+          ovSurface.addEventListener('pointerup', function (ev) {
             AppState.camera.dragging = false;
             if (!moved) {
-              const rect = ovCanvas.getBoundingClientRect();
+              const rect = ovSurface.getBoundingClientRect();
               const hit = findNodeAt(ev.clientX - rect.left, ev.clientY - rect.top);
               if (hit) {
                 AppState.selectedNodeId = hit.id;
@@ -2382,11 +2381,11 @@
             }
           });
 
-          ovCanvas.addEventListener('pointerleave', function () {
+          ovSurface.addEventListener('pointerleave', function () {
             tooltip.style.display = 'none';
           });
 
-          ovCanvas.addEventListener('wheel', function (ev) {
+          ovSurface.addEventListener('wheel', function (ev) {
             ev.preventDefault();
             const factor = ev.deltaY > 0 ? 0.92 : 1.08;
             AppState.camera.zoom = Math.max(0.55, Math.min(2.2, AppState.camera.zoom * factor));
@@ -2676,7 +2675,7 @@
 
         // Extract Factors
         const factors = [];
-        const fRe = /(Factor\s+\d+)\s*[:–\-]\s*([^\n\r*|]+)/gi;
+        const fRe = /(Factor\s+\d+)\s*[:\u2013\-]\s*([^\n\r*|]+)/gi;
         const seenF = {};
         let fm;
         while ((fm = fRe.exec(rfpText + '\n' + allText)) !== null) {
@@ -2731,11 +2730,11 @@
             title: 'Unstated Evaluation Criteria in Factor 1 (' + factors[0].name + ')',
             category_code: 'GR-01',
             far_citation: 'FAR 15.303(a)(2), FAR 15.305(a)',
-            gao_precedent: 'Alion Science & Technology Corp., B-400760; Vistronix, LLC, B-416916',
+            gao_precedent: 'GAO Decision B-400760; GAO Decision B-416916',
             factual_basis: 'The Agency assigned a weakness/penalty to ' + pShort + ' regarding "' + feat + '" even though Section L and Section M contained no such requirement.',
             agency_error: 'The Agency evaluated proposals against an undisclosed criterion outside Section M.',
             prejudice_analysis: 'Eliminating this unlawful penalty elevates ' + pShort + ' under the highest-weighted technical factor.',
-            agency_defense_rebuttal: 'Anticipated Defense: Feature was logically encompassed. Rebuttal: Major unstated mandates cannot be implied into general Section M language (Alion Sci. & Tech.).',
+            agency_defense_rebuttal: 'Anticipated Defense: Feature was logically encompassed. Rebuttal: Major unstated mandates cannot be implied into general Section M language (GAO B-400760).',
             viability_score: 95,
             target_factor: 'Factor 1',
             source_citations: [cite]
@@ -2759,11 +2758,11 @@
             title: 'Improper Waiver of Mandatory Key Personnel Qualifications (' + (factors[1] ? factors[1].id : 'Factor 2') + ')',
             category_code: 'GR-03',
             far_citation: 'FAR 15.206, FAR 15.305',
-            gao_precedent: 'ArmorWorks Enterprises, LLC, B-400394; Northeast Military Sales, B-404153',
+            gao_precedent: 'GAO Decision B-400394; GAO Decision B-404153',
             factual_basis: 'Solicitation mandated minimum ' + rY + ' years experience and required certifications. ' + aShort + ' proposed personnel with ' + aY + ' years / missing credentials, which the Agency waived without amending the RFP.',
             agency_error: 'Unilateral relaxation of a material mandatory staffing qualification in violation of FAR 15.206.',
             prejudice_analysis: aShort + '\'s proposal was non-compliant on its face and ineligible for contract award.',
-            agency_defense_rebuttal: 'Anticipated Defense: Evaluator discretion. Rebuttal: Agencies have zero discretion to waive explicit Section L mandatory minimums post-closing (Northeast Military Sales).',
+            agency_defense_rebuttal: 'Anticipated Defense: Evaluator discretion. Rebuttal: Agencies have zero discretion to waive explicit Section L mandatory minimums post-closing (GAO B-404153).',
             viability_score: 97,
             target_factor: factors[1] ? factors[1].id : 'Factor 2',
             source_citations: [cite]
@@ -2788,11 +2787,11 @@
               title: 'Acceptance of Non-Compliant Mandatory Technical SLA Threshold (Factor 1)',
               category_code: 'GR-03',
               far_citation: 'FAR 15.206, FAR 15.305',
-              gao_precedent: 'Raytheon Co., B-416211; ArmorWorks Enterprises, LLC, B-400394',
+              gao_precedent: 'GAO Decision B-416211; GAO Decision B-400394',
               factual_basis: 'Solicitation mandated >= ' + reqS + '% availability SLA. ' + aShort + ' proposed ' + awdS + '% and was not rejected as non-compliant.',
               agency_error: 'Acceptance of a proposal taking exception to a material mandatory performance specification.',
               prejudice_analysis: 'Enforcing the mandatory SLA renders ' + aShort + ' ineligible for award.',
-              agency_defense_rebuttal: 'Anticipated Defense: Minor deviation. Rebuttal: Material availability floors marked non-compliant cannot be relaxed without amendment (Raytheon Co.).',
+              agency_defense_rebuttal: 'Anticipated Defense: Minor deviation. Rebuttal: Material availability floors marked non-compliant cannot be relaxed without amendment (GAO B-416211).',
               viability_score: 95,
               target_factor: 'Factor 1',
               source_citations: [cite]
@@ -2813,11 +2812,11 @@
             title: 'Disparate Treatment in Evaluation of Substantially Identical Proposal Features',
             category_code: 'GR-02',
             far_citation: 'FAR 1.102-2(c)(3), FAR 15.305',
-            gao_precedent: 'Raytheon Co., B-409651; BAE Systems Integrated Defense Solutions, B-414852',
+            gao_precedent: 'GAO Decision B-409651; GAO Decision B-414852',
             factual_basis: pShort + ' and ' + aShort + ' proposed comparable technical approaches, yet evaluators credited ' + aShort + ' while downgrading ' + pShort + '.',
             agency_error: 'Application of an unequal evaluation standard across competing offerors.',
             prejudice_analysis: 'Equal treatment elevates ' + pShort + '\'s technical rating directly impacting the award tradeoff.',
-            agency_defense_rebuttal: 'Anticipated Defense: Distinguishable proposal detail. Rebuttal: Record shows indistinguishable commitments scored inconsistently (Raytheon Co.).',
+            agency_defense_rebuttal: 'Anticipated Defense: Distinguishable proposal detail. Rebuttal: Record shows indistinguishable commitments scored inconsistently (GAO B-416211).',
             viability_score: 90,
             target_factor: 'Factor 1',
             source_citations: [cite]
@@ -2825,18 +2824,18 @@
         }
 
         // 5. Past Performance Relevance (GR-04)
-        if (/non-relevant|commercial retail|megaretail|lacked required.*relevance|smaller than.*threshold/i.test(allText)) {
+        if (/non-relevant|commercial retail|retail storefront|lacked required.*relevance|smaller than.*threshold/i.test(allText)) {
           const cite = findCite('Past Performance|Relevance|commercial');
           grounds.push({
             count_id: 'COUNT ' + numerals[grounds.length],
             title: 'Unreasonable Past Performance Relevance Evaluation (' + (factors[2] ? factors[2].id : 'Factor 3') + ')',
             category_code: 'GR-04',
             far_citation: 'FAR 15.305(a)(2)',
-            gao_precedent: 'Fluor Federal Solutions, LLC, B-414223; Metro Machine Corp., B-402567',
+            gao_precedent: 'GAO Decision B-414223; GAO Decision B-402567',
             factual_basis: aShort + ' submitted commercial/sub-threshold contract references failing Section L/M size and scope minimums yet received a favorable confidence rating.',
             agency_error: 'Failure to evaluate past performance size, scope, and complexity against stated solicitation thresholds.',
             prejudice_analysis: 'Proper relevance scoring widens ' + pShort + '\'s past performance advantage.',
-            agency_defense_rebuttal: 'Anticipated Defense: Broad relevance discretion. Rebuttal: Evaluators cannot ignore explicit dollar and scope floors in Section M (Fluor Fed. Sols.).',
+            agency_defense_rebuttal: 'Anticipated Defense: Broad relevance discretion. Rebuttal: Evaluators cannot ignore explicit dollar and scope floors in Section M (GAO B-414223).',
             viability_score: 88,
             target_factor: factors[2] ? factors[2].id : 'Factor 3',
             source_citations: [cite]
@@ -2856,11 +2855,11 @@
             title: 'Misleading and Unequal Discussions Under FAR 15.306(d)',
             category_code: 'GR-06',
             far_citation: 'FAR 15.306(d), FAR 15.307',
-            gao_precedent: 'AT&T Corp., B-414886; Caddell Construction Co., B-411005',
+            gao_precedent: 'GAO Decision B-414886; GAO Decision B-411005',
             factual_basis: 'Agency Evaluation Notices allowed ' + aShort + ' to cure material weaknesses while failing to raise determinative concerns assigned to ' + pShort + '.',
             agency_error: 'Failure to conduct meaningful and equal discussions across all offerors in the competitive range.',
             prejudice_analysis: 'Had the Agency raised the concern during discussions, ' + pShort + ' would have resolved it in its Final Proposal Revision.',
-            agency_defense_rebuttal: 'Anticipated Defense: No duty to spoon-feed. Rebuttal: FAR 15.306(d)(3) requires raising every significant weakness and deficiency (AT&T Corp.).',
+            agency_defense_rebuttal: 'Anticipated Defense: No duty to spoon-feed. Rebuttal: FAR 15.306(d)(3) requires raising every significant weakness and deficiency (GAO B-414886).',
             viability_score: 91,
             target_factor: 'Factor 1',
             source_citations: [cite]
@@ -2880,11 +2879,11 @@
             title: 'Unmitigated Organizational Conflict of Interest (FAR Subpart 9.5)',
             category_code: 'GR-07',
             far_citation: 'FAR 9.504, FAR 9.505',
-            gao_precedent: 'Aetna Government Health Plans, B-254397; NetStar-1 Gov\'t Consulting, B-404033',
+            gao_precedent: 'GAO Decision B-254397; GAO Decision B-404033',
             factual_basis: 'Record reveals unequal access to non-public source selection data or impaired objectivity involving ' + aShort + ' without an adequate CO mitigation investigation.',
             agency_error: 'Failure to identify and neutralize a material OCI prior to contract award under FAR 9.504.',
             prejudice_analysis: 'Unmitigated OCI presumptively taints the competition to the prejudice of ' + pShort + '.',
-            agency_defense_rebuttal: 'Anticipated Defense: Contractor self-certified firewall. Rebuttal: Unverified post-hoc representations do not satisfy FAR 9.5 (NetStar-1).',
+            agency_defense_rebuttal: 'Anticipated Defense: Contractor self-certified firewall. Rebuttal: Unverified post-hoc representations do not satisfy FAR 9.5 (GAO B-404033).',
             viability_score: 89,
             target_factor: factors[1] ? factors[1].id : 'Factor 2',
             source_citations: [cite]
@@ -2899,11 +2898,11 @@
             title: 'Defective Cost / Price Realism Evaluation (FAR 15.404-1(d))',
             category_code: 'GR-08',
             far_citation: 'FAR 15.404-1(d)',
-            gao_precedent: 'Smartronix, Inc., B-413721; Solers Inc., B-409079',
+            gao_precedent: 'GAO Decision B-413721; GAO Decision B-409079',
             factual_basis: 'Agency accepted ' + aShort + '\'s understated labor rates / probable cost without evaluating technical understanding risk as required by Section M.',
             agency_error: 'Failure to perform mandated cost/price realism adjustments or technical risk findings.',
             prejudice_analysis: 'Proper probable-cost realism adjustment eliminates ' + aShort + '\'s evaluated price advantage.',
-            agency_defense_rebuttal: 'Anticipated Defense: Price reasonableness sufficed. Rebuttal: Reasonableness (too high) cannot substitute for realism (too low) when required by Section M (Smartronix).',
+            agency_defense_rebuttal: 'Anticipated Defense: Price reasonableness sufficed. Rebuttal: Reasonableness (too high) cannot substitute for realism (too low) when required by Section M (GAO B-413721).',
             viability_score: 88,
             target_factor: factors[factors.length - 1].id,
             source_citations: [cite]
@@ -2923,11 +2922,11 @@
             title: 'Defective Best Value Cost-Technical Tradeoff Decision (FAR 15.308)',
             category_code: 'GR-05',
             far_citation: 'FAR 15.308, FAR 15.101-1',
-            gao_precedent: 'Blue Rock Structures, Inc., B-293134; General Dynamics IT, Inc., B-415755',
+            gao_precedent: 'GAO Decision B-293134; GAO Decision B-415755',
             factual_basis: 'SSA relied on flawed underlying evaluations and price (' + fmtCompactCurrency(awdPrice) + ' vs ' + fmtCompactCurrency(protPrice) + ') without a lawful qualitative tradeoff under Section M.',
             agency_error: 'Source selection decision rested on defective technical ratings and mechanical price preference.',
             prejudice_analysis: 'Under a compliant re-evaluation where non-price factors outweigh price, ' + pShort + ' stands next in line for award.',
-            agency_defense_rebuttal: 'Anticipated Defense: Broad SSA tradeoff discretion. Rebuttal: Tradeoff predicated on underlying evaluation flaws is legally unsustainable (Blue Rock Structures).',
+            agency_defense_rebuttal: 'Anticipated Defense: Broad SSA tradeoff discretion. Rebuttal: Tradeoff predicated on underlying evaluation flaws is legally unsustainable (GAO B-293134).',
             viability_score: 92,
             target_factor: factors[factors.length - 1].id,
             source_citations: [cite]
@@ -3166,19 +3165,19 @@
             filename: 'protester_vanguard_proposal.md',
             role: 'protester_proposal',
             role_label: 'Protester Proposal Submission',
-            content: '**Offeror**: Vanguard Aerospace & Cyber, LLC\n**Submitted Price**: $118,400,000.00\nProposed 99.995% tactical link availability, 16 years TS/SCI Chief Architect experience, and $110M AFLCMC incumbent C4ISR past performance.'
+            content: '**Offeror**: Vanguard Federal\n**Submitted Price**: $118,400,000.00\nProposed 99.995% tactical link availability, 16 years TS/SCI Chief Architect experience, and $110M AFLCMC incumbent C4ISR past performance.'
           },
           {
             filename: 'awardee_stratos_tet_and_en_record.md',
             role: 'tet_report',
             role_label: 'TET Consensus Evaluation Report',
-            content: '**Awardee**: Stratos Integrated Systems, Inc.\n**Submitted Price**: $96,100,000.00\n- Significant Weakness assigned to Vanguard because Vanguard did not propose a proprietary LeoSat optical ground terminal (unstated criteria; neither Section L nor Section M mentions optical ground terminals).\n- Stratos proposed 99.90% availability SLA and Chief Architect with only 6 years experience (waived by TET).\n- Unequal discussions under FAR 15.306: Agency issued Evaluation Notice EN-04 coaching Stratos to revise architecture while withholding EN on Vanguard Significant Weakness.\n- Unmitigated OCI: Stratos subcontractor authored draft ABMS-ZTM requirements providing unequal access to information.\n- Cost realism flaw under FAR 15.404-1(d): Agency failed to adjust Stratos unrealistically low labor rates.'
+            content: '**Awardee**: Stratos Systems\n**Submitted Price**: $96,100,000.00\n- Significant Weakness assigned to Vanguard because Vanguard did not propose a proprietary LeoSat optical ground terminal (unstated criteria; neither Section L nor Section M mentions optical ground terminals).\n- Stratos proposed 99.90% availability SLA and Chief Architect with only 6 years experience (waived by TET).\n- Unequal discussions under FAR 15.306: Agency issued Evaluation Notice EN-04 coaching Stratos to revise architecture while withholding EN on Vanguard Significant Weakness.\n- Unmitigated OCI: Stratos subcontractor authored draft ABMS-ZTM requirements providing unequal access to information.\n- Cost realism flaw under FAR 15.404-1(d): Agency failed to adjust Stratos unrealistically low labor rates.'
           },
           {
             filename: 'ssdd_and_debriefing_fa8730.md',
             role: 'debriefing',
             role_label: 'Post-Award Debriefing & Q&A',
-            content: '**DATE OF DEBRIEFING DELIVERY**: September 14, 2026\nAgency written answers delivered on September 18, 2026.\nSource Selection Authority selected Stratos Integrated Systems, Inc. for award in the amount of $96,100,000.00 under a best value tradeoff.'
+            content: '**DATE OF DEBRIEFING DELIVERY**: September 14, 2026\nAgency written answers delivered on September 18, 2026.\nSource Selection Authority selected Stratos Systems for award in the amount of $96,100,000.00 under a best value tradeoff.'
           }
         ];
         document.getElementById('override-sol-id').value = '';
@@ -3254,7 +3253,7 @@
       });
 
       /* =====================================================================
-         8. FILTER, SORT, CAMERA PRESETS & INCREMENTAL STATE API (DESIGN.md §2)
+         8. FILTER, SORT, CAMERA PRESETS & INCREMENTAL STATE API (DESIGN.md Sec.2)
       ===================================================================== */
       document.querySelectorAll('[data-factor-filter]').forEach(function (btn) {
         btn.addEventListener('click', function () {

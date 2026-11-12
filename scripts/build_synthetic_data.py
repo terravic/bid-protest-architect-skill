@@ -11,17 +11,17 @@ files['synthetic_data/solicitation_rfp_section_lm.md'] = """# SOLICITATION NO. H
 
 ---
 
-# SECTION L – INSTRUCTIONS, CONDITIONS, AND NOTICES TO OFFERORS
+# SECTION L - INSTRUCTIONS, CONDITIONS, AND NOTICES TO OFFERORS
 
 ### L.1 General Submission Instructions
 Offerors shall submit proposals organized into the following distinct volumes:
-- Volume I: Factor 1 – Technical & Cloud Architecture Approach
-- Volume II: Factor 2 – Key Personnel and Management Plan
-- Volume III: Factor 3 – Past Performance
-- Volume IV: Factor 4 – Cost/Price Proposal (Firm-Fixed-Price)
+- Volume I: Factor 1 - Technical & Cloud Architecture Approach
+- Volume II: Factor 2 - Key Personnel and Management Plan
+- Volume III: Factor 3 - Past Performance
+- Volume IV: Factor 4 - Cost/Price Proposal (Firm-Fixed-Price)
 
 ### L.2 Proposal Format and Page Limitations
-All volumes must be in 11-point Times New Roman font, 1-inch margins.
+All volumes must be in 11-point serif font, 1-inch margins.
 - Volume I: Maximum 60 pages
 - Volume II: Maximum 30 pages (including resumes and letters of commitment)
 - Volume III: Maximum 20 pages (up to 3 past performance references)
@@ -35,23 +35,23 @@ Offerors must demonstrate a proven, secure multi-region cloud architecture meeti
 ### L.4 Instructions for Factor 2: Key Personnel and Management Plan
 The offeror shall propose resumes and signed letters of commitment for three (3) mandatory Key Personnel positions:
 1. **Key Personnel Position 1: Lead Cloud Solutions Architect**
-   - *Mandatory Minimum Qualification*: Minimum of **ten (10) years** of direct experience architecting enterprise federal cloud solutions on AWS GovCloud or Google Cloud Assured Workloads, holding active AWS Certified Solutions Architect Professional or Google Professional Cloud Architect certification, and a current CISSP certification.
+   - *Mandatory Minimum Qualification*: Minimum of **ten (10) years** of direct experience architecting federal cloud solutions in FedRAMP High authorized government cloud environments, holding active Certified Cloud Solutions Architect Professional certification and a current CISSP certification.
 2. **Key Personnel Position 2: Chief Information Security Officer (CISO) / Security Lead**
-   - *Mandatory Minimum Qualification*: Minimum of eight (8) years specialized federal cybersecurity experience and active CISSP/CISM.
+   - *Mandatory Minimum Qualification*: Minimum of eight (8) years specialized federal cybersecurity experience and active CISSP/CISM certification.
 3. **Key Personnel Position 3: Senior DevSecOps Engineering Lead**
-   - *Mandatory Minimum Qualification*: Minimum of seven (7) years experience in CI/CD pipeline automation and container orchestration (Kubernetes).
+   - *Mandatory Minimum Qualification*: Minimum of seven (7) years experience in CI/CD pipeline automation and container orchestration.
 
 *Note*: Failure to satisfy the mandatory minimum qualifications for any Key Personnel position will result in a rating of Unacceptable for Factor 2.
 
 ### L.5 Instructions for Factor 3: Past Performance
-Offerors shall submit up to three (3) relevant past performance references for contracts performed within the past three (3) years. To be considered "relevant", each reference must involve enterprise federal cloud engineering of **similar size (annual value >= $15,000,000 or total contract value >= $50,000,000)**, **scope (multi-region cloud migration, FedRAMP High)**, and **complexity (federal civilian/defense healthcare systems)**.
+Offerors shall submit up to three (3) relevant past performance references for contracts performed within the past three (3) years. To be considered "relevant", each reference must involve federal cloud engineering of **similar size (annual value >= $15,000,000 or total contract value >= $50,000,000)**, **scope (multi-region cloud migration, FedRAMP High)**, and **complexity (federal civilian/defense healthcare systems)**.
 
 ### L.6 Instructions for Factor 4: Cost/Price Proposal
 Offerors shall submit firm-fixed-prices for the 1-year Base Period and four (4) 1-year Option Periods using the pricing template in Attachment J-4.
 
 ---
 
-# SECTION M – EVALUATION FACTORS FOR AWARD
+# SECTION M - EVALUATION FACTORS FOR AWARD
 
 ### M.1 Basis for Award (FAR 15.101-1 Best Value Tradeoff)
 Award will be made to the responsible Offeror whose proposal conforms to the solicitation and represents the **Best Value** to the Government, price and non-price factors considered.
@@ -78,59 +78,59 @@ Past Performance (Factor 3) will be evaluated as: Substantial Confidence, Satisf
 Evaluation will be conducted strictly against the evaluation criteria set forth in Section M. No extraneous requirements, unstated preferences, or non-solicited capabilities will form the basis for assigning weaknesses or strengths.
 """
 
-files['synthetic_data/proposal_apex_protester.md'] = """# PROPOSAL EXCERPT: APEX FEDERAL SOLUTIONS
+files['synthetic_data/proposal_apex_protester.md'] = """# PROPOSAL EXCERPT: OFFEROR APEX
 **Solicitation**: HHS-CMS-2026-CLOUD-009 (FHIS-CM)  
-**Offeror**: Apex Federal Solutions, LLC (CAGE: 4K9L2, DUNS: 839201948)  
+**Offeror**: Apex Federal (CAGE: 4K9L2, UEI: 839201948)  
 **Role**: Incumbent Prime Contractor  
 **Submitted Price (Volume IV)**: $94,500,000.00 (Firm-Fixed-Price)  
 
 ---
 
-## Volume I: Factor 1 – Technical & Cloud Architecture Approach
+## Volume I: Factor 1 - Technical & Cloud Architecture Approach
 
 ### 1.1 Architecture & Availability SLA (Section L.3.1 Compliance)
 Apex guarantees a monthly service availability uptime SLA of **99.999%** ("Five Nines") across our multi-region FedRAMP High cloud deployment. This exceeds the mandatory Section L.3.1 requirement of 99.99%.
-- **Active-Active Cross-Region Failover**: Sub-minute data synchronization across AWS GovCloud (US-East / US-West). RTO is verified at 4.2 minutes (exceeding the 15-minute mandate), and RPO is 0 seconds with synchronous database replication.
+- **Active-Active Cross-Region Failover**: Sub-minute data synchronization across FedRAMP High government cloud regions (US-East / US-West). RTO is verified at 4.2 minutes (exceeding the 15-minute mandate), and RPO is 0 seconds with synchronous database replication.
 - **Zero Trust Implementation**: NIST SP 800-207 compliant micro-segmentation, identity-aware proxies, automated mTLS encryption at rest and in transit (FIPS 140-3).
 
 ---
 
-## Volume II: Factor 2 – Key Personnel and Management Plan
+## Volume II: Factor 2 - Key Personnel and Management Plan
 
 ### 2.1 Proposed Key Personnel (Section L.4 Compliance)
 1. **Lead Cloud Solutions Architect: Dr. Elena Vance, Ph.D.**
-   - *Experience*: **14 years** of federal cloud architecture experience (AWS GovCloud and Azure Government).
-   - *Certifications*: AWS Certified Solutions Architect - Professional (Active #AWS-99281), Google Cloud Certified Fellow, CISSP (#498210, Current).
+   - *Experience*: **14 years** of federal cloud architecture experience across FedRAMP High government cloud enclaves.
+   - *Certifications*: Certified Cloud Solutions Architect - Professional (Active #CSA-99281), Certified Federal Cloud Fellow, CISSP (#498210, Current).
    - *Letter of Commitment*: Fully executed, enclosed on Page 12.
 2. **CISO / Security Lead: Marcus Thorne**
    - *Experience*: 11 years federal cybersecurity leadership, CISSP, CISM.
 3. **Senior DevSecOps Lead: Sarah Chen**
-   - *Experience*: 9 years enterprise Kubernetes and GitOps automation.
+   - *Experience*: 9 years container orchestration and automated CI/CD deployment.
 
 ---
 
-## Volume III: Factor 3 – Past Performance
+## Volume III: Factor 3 - Past Performance
 
-### 3.1 Reference 1: Centers for Medicare & Medicaid Services – Current Cloud Platform (Incumbent Contract)
+### 3.1 Reference 1: Centers for Medicare & Medicaid Services - Current Cloud Platform (Incumbent Contract)
 - **Contract Number**: HHS-CMS-2021-0044 | **Value**: $91,200,000.00 | **Period**: 2021 - 2026
-- **Relevance**: Direct incumbent contract of identical size, scope, and complexity. Managed 150+ microservices on FedRAMP High GovCloud.
+- **Relevance**: Direct incumbent contract of identical size, scope, and complexity. Managed 150+ microservices on FedRAMP High government cloud infrastructure.
 - **CPARS Rating**: Quality: Exceptional | Schedule: Exceptional | Cost Control: Exceptional | Management: Exceptional.
 
-### 3.2 Reference 2: Defense Health Agency (DHA) – Electronic Health Record Cloud Enclave
+### 3.2 Reference 2: Defense Health Agency (DHA) - Electronic Health Record Cloud Enclave
 - **Contract Number**: HT0011-22-C-0019 | **Value**: $64,500,000.00 | **Period**: 2022 - 2025
-- **Relevance**: Highly relevant healthcare cloud modernization on AWS GovCloud.
+- **Relevance**: Highly relevant healthcare cloud modernization on FedRAMP High government cloud infrastructure.
 - **CPARS Rating**: Quality: Exceptional | Management: Very Good | Regulatory Compliance: Exceptional.
 """
 
-files['synthetic_data/proposal_nexus_awardee.md'] = """# PROPOSAL EXCERPT: NEXUS DEFENSE SYSTEMS
+files['synthetic_data/proposal_nexus_awardee.md'] = """# PROPOSAL EXCERPT: OFFEROR NEXUS
 **Solicitation**: HHS-CMS-2026-CLOUD-009 (FHIS-CM)  
-**Offeror**: Nexus Defense Systems, Inc. (CAGE: 7Z8P1, DUNS: 120495831)  
+**Offeror**: Nexus Systems (CAGE: 7Z8P1, UEI: 120495831)  
 **Role**: Non-Incumbent Awardee  
 **Submitted Price (Volume IV)**: $82,200,000.00 (Firm-Fixed-Price)  
 
 ---
 
-## Volume I: Factor 1 – Technical & Cloud Architecture Approach
+## Volume I: Factor 1 - Technical & Cloud Architecture Approach
 
 ### 1.1 Architecture & Availability SLA (Section L.3.1 Compliance)
 Nexus proposes a scalable commercial off-the-shelf container framework on public cloud infrastructure.
@@ -139,28 +139,28 @@ Nexus proposes a scalable commercial off-the-shelf container framework on public
 
 ---
 
-## Volume II: Factor 2 – Key Personnel and Management Plan
+## Volume II: Factor 2 - Key Personnel and Management Plan
 
 ### 2.1 Proposed Key Personnel (Section L.4 Compliance)
 1. **Lead Cloud Solutions Architect: Johnathan Brooks**
    - *Experience*: **Four (4) years** of total IT cloud engineering experience (primarily commercial e-commerce web deployment, joined Nexus in 2023).
-   - *Certifications*: AWS Certified Solutions Architect - Associate (Earned 2023). *Note: Does not possess AWS Professional or Google Professional certification, and does not possess CISSP.*
+   - *Certifications*: Cloud Solutions Architect - Associate (Earned 2023). *Note: Does not possess Certified Cloud Solutions Architect Professional certification, and does not possess CISSP.*
    - *Letter of Commitment*: Enclosed.
 2. **CISO / Security Lead: Robert Miller**
-   - *Experience*: 5 years cybersecurity experience, Security+ certification.
+   - *Experience*: 5 years cybersecurity experience, entry-level security certification.
 3. **Senior DevSecOps Lead: Travis Cole**
    - *Experience*: 6 years CI/CD pipeline automation.
 
 ---
 
-## Volume III: Factor 3 – Past Performance
+## Volume III: Factor 3 - Past Performance
 
-### 3.1 Reference 1: MegaRetail Online – E-Commerce Web Storefront Optimization
-- **Customer**: MegaRetail LLC (Commercial Client) | **Value**: $3,200,000.00 | **Period**: 2024 - 2025
+### 3.1 Reference 1: Retail Storefront Portal - E-Commerce Web Catalog Optimization
+- **Customer**: Commercial Retail Client | **Value**: $3,200,000.00 | **Period**: 2024 - 2025
 - **Description**: Replatformed e-commerce catalog to public cloud containers.
-- **Relevance**: Commercial retail web deployment (Non-federal, non-GovCloud, not FedRAMP High, value $3.2M vs $50M+ requirement).
+- **Relevance**: Commercial retail web deployment (Non-federal, non-government cloud, not FedRAMP High, value $3.2M vs $50M+ requirement).
 
-### 3.2 Reference 2: State Department of Motor Vehicles – Web Portal
+### 3.2 Reference 2: State Department of Motor Vehicles - Web Portal
 - **Customer**: State DOT | **Value**: $8,500,000.00 | **Period**: 2023 - 2024
 - **Description**: Frontend web portal hosting.
 """
@@ -176,38 +176,38 @@ files['synthetic_data/technical_evaluation_report.md'] = """# TECHNICAL EVALUATI
 
 | Offeror | Factor 1: Technical & Cloud Architecture | Factor 2: Key Personnel & Management | Factor 3: Past Performance | Factor 4: Evaluated Price |
 |---|---|---|---|---|
-| **Nexus Defense Systems** | **Good** | **Acceptable** | **Very Good (Satisfactory Confidence)** | **$82,200,000.00** |
-| **Apex Federal Solutions** | **Acceptable** | **Outstanding** | **Substantial Confidence** | **$94,500,000.00** |
+| **Nexus Systems** | **Good** | **Acceptable** | **Very Good (Satisfactory Confidence)** | **$82,200,000.00** |
+| **Apex Federal** | **Acceptable** | **Outstanding** | **Substantial Confidence** | **$94,500,000.00** |
 
 ---
 
-## 2. Detailed Findings: Apex Federal Solutions (Incumbent)
+## 2. Detailed Findings: Apex Federal (Incumbent)
 
-### Factor 1: Technical & Cloud Architecture Approach – Rating: Acceptable
-- **Strength 1**: Proposed 99.999% SLA exceeds requirements with robust multi-region GovCloud architecture.
+### Factor 1: Technical & Cloud Architecture Approach - Rating: Acceptable
+- **Strength 1**: Proposed 99.999% SLA exceeds requirements with multi-region FedRAMP High government cloud architecture.
 - **Significant Weakness 1 (UNSTATED CRITERIA)**: The TET assigned a Significant Weakness because Apex "did not propose a dedicated on-premises physical datacenter hardware bridge facility to connect with legacy Baltimore CMS mainframe hardware." *(Note: Section L & M do not mention or require on-premises physical datacenter hardware).*
 - **Overall Factor 1 Rationale**: Despite strong cloud design, the Significant Weakness regarding legacy mainframe hardware bridge reduced Apex's technical rating from Outstanding to Acceptable.
 
-### Factor 2: Key Personnel and Management Plan – Rating: Outstanding
-- **Strength 1**: Dr. Elena Vance possesses 14 years of GovCloud experience, active AWS Professional Architect, Google Fellow, and CISSP certifications, providing unmatched domain mastery.
-- **Strength 2**: All three key personnel exceed mandatory experience thresholds with pristine records.
+### Factor 2: Key Personnel and Management Plan - Rating: Outstanding
+- **Strength 1**: Dr. Elena Vance possesses 14 years of federal cloud experience, active Certified Cloud Solutions Architect Professional, Certified Federal Cloud Fellow, and CISSP certifications.
+- **Strength 2**: All three key personnel exceed mandatory experience thresholds with verified records.
 
-### Factor 3: Past Performance – Rating: Substantial Confidence
+### Factor 3: Past Performance - Rating: Substantial Confidence
 - Both submitted references were directly relevant federal healthcare cloud contracts ($91.2M and $64.5M) with Exceptional CPARS ratings.
 
 ---
 
-## 3. Detailed Findings: Nexus Defense Systems (Awardee)
+## 3. Detailed Findings: Nexus Systems (Awardee)
 
-### Factor 1: Technical & Cloud Architecture Approach – Rating: Good
+### Factor 1: Technical & Cloud Architecture Approach - Rating: Good
 - **Strength 1**: Commercial microservice architecture is modular and cost-efficient.
 - **Note on SLA (FAILURE TO ENFORCE MANDATORY MINIMUM)**: The TET noted that Nexus proposed a 99.95% availability SLA. The TET determined that "99.95% is acceptable for general web workloads," despite Section L.3.1 mandating a 99.99% minimum threshold. No deficiency was assigned.
 
-### Factor 2: Key Personnel and Management Plan – Rating: Acceptable
-- **Note on Lead Architect (DISPARATE TREATMENT / WAIVER OF MANDATORY MINIMUM)**: The TET evaluated Johnathan Brooks (Lead Cloud Architect). Although Mr. Brooks possesses only 4 years of cloud experience and lacks AWS Professional and CISSP certifications (Section L.4 mandated 10 years, AWS Professional/Google Fellow, and CISSP), the TET stated: "The candidate possesses good commercial aptitude which compensates for the shortage in required years of experience." A rating of Acceptable was awarded.
+### Factor 2: Key Personnel and Management Plan - Rating: Acceptable
+- **Note on Lead Architect (DISPARATE TREATMENT / WAIVER OF MANDATORY MINIMUM)**: The TET evaluated Johnathan Brooks (Lead Cloud Architect). Although Mr. Brooks possesses only 4 years of cloud experience and lacks Cloud Architect Professional and CISSP certifications (Section L.4 mandated 10 years, Cloud Architect Professional, and CISSP), the TET stated: "The candidate possesses good commercial aptitude which compensates for the shortage in required years of experience." A rating of Acceptable was awarded.
 
-### Factor 3: Past Performance – Rating: Satisfactory Confidence (Very Good)
-- **Note on Relevance (FLAWED EVALUATION)**: Evaluated MegaRetail ($3.2M) and State DMV ($8.5M). Even though neither contract met the Section L.5 relevance threshold ($50M+ total value, FedRAMP High, enterprise federal cloud), the TET concluded that "commercial web hosting demonstrates general competence."
+### Factor 3: Past Performance - Rating: Satisfactory Confidence (Very Good)
+- **Note on Relevance (FLAWED EVALUATION)**: Evaluated Retail Storefront Portal ($3.2M) and State DMV ($8.5M). Even though neither contract met the Section L.5 relevance threshold ($50M+ total value, FedRAMP High, federal healthcare cloud), the TET concluded that "commercial web hosting demonstrates general competence."
 """
 
 files['synthetic_data/ssdd_source_selection_decision.md'] = """# SOURCE SELECTION DECISION DOCUMENT (SSDD)
@@ -222,7 +222,7 @@ files['synthetic_data/ssdd_source_selection_decision.md'] = """# SOURCE SELECTIO
 ## 1. Executive Summary and Award Decision
 Pursuant to FAR 15.308, I have reviewed the Technical Evaluation Team (TET) Consensus Report and the Price Evaluation Report.
 
-I hereby select **Nexus Defense Systems, Inc.** for award in the amount of **$82,200,000.00**.
+I hereby select **Nexus Systems** for award in the amount of **$82,200,000.00**.
 
 ---
 
@@ -231,8 +231,8 @@ I hereby select **Nexus Defense Systems, Inc.** for award in the amount of **$82
 ### Summary Matrix
 | Offeror | Factor 1: Technical | Factor 2: Key Personnel | Factor 3: Past Performance | Evaluated Price |
 |---|---|---|---|---|
-| **Nexus Defense Systems** | **Good** | **Acceptable** | **Satisfactory Confidence** | **$82,200,000.00** |
-| **Apex Federal Solutions** | **Acceptable** | **Outstanding** | **Substantial Confidence** | **$94,500,000.00** |
+| **Nexus Systems** | **Good** | **Acceptable** | **Satisfactory Confidence** | **$82,200,000.00** |
+| **Apex Federal** | **Acceptable** | **Outstanding** | **Substantial Confidence** | **$94,500,000.00** |
 
 ### SSA Tradeoff Rationale
 1. Under **Factor 1 (Technical & Cloud Architecture)**, Nexus received a higher rating of **Good**, whereas Apex received **Acceptable** due to a Significant Weakness for failing to provide an on-premises physical datacenter hardware bridge.
@@ -249,12 +249,12 @@ Date: August 1, 2026
 """
 
 files['synthetic_data/debriefing_letter.md'] = """# FORMAL WRITTEN POST-AWARD DEBRIEFING LETTER
-**TO**: Apex Federal Solutions, LLC  
+**TO**: Apex Federal  
 **Attn**: David Sterling, VP of Federal Contracts  
 **FROM**: Contracting Officer, HHS / CMS Office of Acquisition  
 **DATE OF DEBRIEFING DELIVERY**: August 10, 2026  
 **SOLICITATION**: HHS-CMS-2026-CLOUD-009 (FHIS-CM)  
-**AWARD NOTICE**: Contract awarded to Nexus Defense Systems, Inc. ($82,200,000.00)  
+**AWARD NOTICE**: Contract awarded to Nexus Systems ($82,200,000.00)  
 
 ---
 
@@ -270,7 +270,7 @@ This letter constitutes your formal post-award debriefing pursuant to FAR 15.506
 - **Apex Past Performance (Factor 3)**: Substantial Confidence
 - **Apex Evaluated Price (Factor 4)**: $94,500,000.00
 
-### Awardee (Nexus Defense Systems) Ratings:
+### Awardee (Nexus Systems) Ratings:
 - **Nexus Technical (Factor 1)**: Good (Evaluated Price: $82,200,000.00)
 - **Nexus Key Personnel (Factor 2)**: Acceptable
 - **Nexus Past Performance (Factor 3)**: Satisfactory Confidence
@@ -278,11 +278,11 @@ This letter constitutes your formal post-award debriefing pursuant to FAR 15.506
 ---
 
 ## 2. Timeliness and Debriefing Question Procedures
-Under 4 C.F.R. § 21.2(a)(2) and FAR 15.506:
+Under 4 C.F.R. 21.2(a)(2) and FAR 15.506:
 - Offerors may submit written debriefing questions within two (2) business days (by **August 12, 2026**).
 - Agency responses to timely debriefing questions will be delivered by **August 14, 2026**.
 - The statutory debriefing will officially close on the date the Agency delivers written answers to timely submitted questions.
-- A protest to the Government Accountability Office (GAO) will be timely if filed within five (5) days after the debriefing date to invoke the automatic stay of performance (CICA stay under 31 U.S.C. § 3553(d)(4)), or within ten (10) days of when the basis of protest is known.
+- A protest to the Government Accountability Office (GAO) will be timely if filed within five (5) days after the debriefing date to invoke the automatic stay of performance (CICA stay under 31 U.S.C. 3553(d)(4)), or within ten (10) days of when the basis of protest is known.
 """
 
 for path, content in files.items():

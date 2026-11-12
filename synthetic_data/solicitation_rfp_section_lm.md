@@ -7,17 +7,17 @@
 
 ---
 
-# SECTION L – INSTRUCTIONS, CONDITIONS, AND NOTICES TO OFFERORS
+# SECTION L - INSTRUCTIONS, CONDITIONS, AND NOTICES TO OFFERORS
 
 ### L.1 General Submission Instructions
 Offerors shall submit proposals organized into the following distinct volumes:
-- Volume I: Factor 1 – Technical & Cloud Architecture Approach
-- Volume II: Factor 2 – Key Personnel and Management Plan
-- Volume III: Factor 3 – Past Performance
-- Volume IV: Factor 4 – Cost/Price Proposal (Firm-Fixed-Price)
+- Volume I: Factor 1 - Technical & Cloud Architecture Approach
+- Volume II: Factor 2 - Key Personnel and Management Plan
+- Volume III: Factor 3 - Past Performance
+- Volume IV: Factor 4 - Cost/Price Proposal (Firm-Fixed-Price)
 
 ### L.2 Proposal Format and Page Limitations
-All volumes must be in 11-point Times New Roman font, 1-inch margins.
+All volumes must be in 11-point serif font, 1-inch margins.
 - Volume I: Maximum 60 pages
 - Volume II: Maximum 30 pages (including resumes and letters of commitment)
 - Volume III: Maximum 20 pages (up to 3 past performance references)
@@ -31,23 +31,23 @@ Offerors must demonstrate a proven, secure multi-region cloud architecture meeti
 ### L.4 Instructions for Factor 2: Key Personnel and Management Plan
 The offeror shall propose resumes and signed letters of commitment for three (3) mandatory Key Personnel positions:
 1. **Key Personnel Position 1: Lead Cloud Solutions Architect**
-   - *Mandatory Minimum Qualification*: Minimum of **ten (10) years** of direct experience architecting enterprise federal cloud solutions on AWS GovCloud or Google Cloud Assured Workloads, holding active AWS Certified Solutions Architect Professional or Google Professional Cloud Architect certification, and a current CISSP certification.
+   - *Mandatory Minimum Qualification*: Minimum of **ten (10) years** of direct experience architecting federal cloud solutions in FedRAMP High authorized government cloud environments, holding active Certified Cloud Solutions Architect Professional certification and a current CISSP certification.
 2. **Key Personnel Position 2: Chief Information Security Officer (CISO) / Security Lead**
-   - *Mandatory Minimum Qualification*: Minimum of eight (8) years specialized federal cybersecurity experience and active CISSP/CISM.
+   - *Mandatory Minimum Qualification*: Minimum of eight (8) years specialized federal cybersecurity experience and active CISSP/CISM certification.
 3. **Key Personnel Position 3: Senior DevSecOps Engineering Lead**
-   - *Mandatory Minimum Qualification*: Minimum of seven (7) years experience in CI/CD pipeline automation and container orchestration (Kubernetes).
+   - *Mandatory Minimum Qualification*: Minimum of seven (7) years experience in CI/CD pipeline automation and container orchestration.
 
 *Note*: Failure to satisfy the mandatory minimum qualifications for any Key Personnel position will result in a rating of Unacceptable for Factor 2.
 
 ### L.5 Instructions for Factor 3: Past Performance
-Offerors shall submit up to three (3) relevant past performance references for contracts performed within the past three (3) years. To be considered "relevant", each reference must involve enterprise federal cloud engineering of **similar size (annual value >= $15,000,000 or total contract value >= $50,000,000)**, **scope (multi-region cloud migration, FedRAMP High)**, and **complexity (federal civilian/defense healthcare systems)**.
+Offerors shall submit up to three (3) relevant past performance references for contracts performed within the past three (3) years. To be considered "relevant", each reference must involve federal cloud engineering of **similar size (annual value >= $15,000,000 or total contract value >= $50,000,000)**, **scope (multi-region cloud migration, FedRAMP High)**, and **complexity (federal civilian/defense healthcare systems)**.
 
 ### L.6 Instructions for Factor 4: Cost/Price Proposal
 Offerors shall submit firm-fixed-prices for the 1-year Base Period and four (4) 1-year Option Periods using the pricing template in Attachment J-4.
 
 ---
 
-# SECTION M – EVALUATION FACTORS FOR AWARD
+# SECTION M - EVALUATION FACTORS FOR AWARD
 
 ### M.1 Basis for Award (FAR 15.101-1 Best Value Tradeoff)
 Award will be made to the responsible Offeror whose proposal conforms to the solicitation and represents the **Best Value** to the Government, price and non-price factors considered.

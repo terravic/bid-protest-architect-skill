@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Search Diagnostics & Retrieval Comparator (Vertex AI Search vs Local Hybrid)
+Search Diagnostics & Retrieval Comparator
 
 Evaluates retrieval performance across query formulation strategies:
 Natural Language, Direct Keyword, and Optimized Legal Query Expansion.
@@ -55,10 +55,10 @@ BENCHMARK_QUERIES = [
         "id": "Q4_PAST_PERFORMANCE_RELEVANCE",
         "category": "Past Performance Scope & Dollar Threshold",
         "target_docs": ["proposal_nexus_awardee.md", "technical_evaluation_report.md"],
-        "target_phrase": "megaretail llc",
-        "naive_query": "How was past performance scored for both companies?",
-        "ui_query": "Nexus past performance MegaRetail 3,200,000 relevance",
-        "optimized_query": "\"MegaRetail\" \"3,200,000\" relevance Nexus",
+        "target_phrase": "retail storefront portal",
+        "naive_query": "How was past performance scored for both offerors?",
+        "ui_query": "Nexus past performance Retail Storefront Portal 3,200,000 relevance",
+        "optimized_query": "\"Retail Storefront Portal\" \"3,200,000\" relevance Nexus",
     },
     {
         "id": "Q5_TRADEOFF_RATIONALE",
@@ -80,7 +80,7 @@ def clean_text(text: str) -> str:
 
 
 class LocalCorpusEngine:
-    """Local BM25 & Keyword Engine to simulate and diagnose retrieval performance."""
+    """Local BM25 & Keyword Engine to diagnose retrieval precision across query modes."""
 
     def __init__(self, data_dir: Optional[str] = None, file_paths: Optional[List[str]] = None):
         self.data_dir = data_dir
@@ -149,7 +149,6 @@ def build_dynamic_queries(engine: LocalCorpusEngine) -> List[Dict[str, Any]]:
 
     queries: List[Dict[str, Any]] = []
     for idx, (doc_name, clean_body) in enumerate(engine.clean_docs.items(), start=1):
-        # Extract distinctive multi-word phrases (e.g., mandatory clauses, weaknesses, ratings)
         phrase_m = (
             re.search(r"(significant weakness[^\n.]{8,45})", clean_body)
             or re.search(r"(minimum of [a-z0-9 ()]{4,35})", clean_body)
@@ -178,11 +177,9 @@ def build_dynamic_queries(engine: LocalCorpusEngine) -> List[Dict[str, Any]]:
 
 def run_diagnostics(
     data_dir: str,
-    gcp_project: Optional[str] = None,
-    data_store_id: Optional[str] = None,
     file_paths: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
-    """Runs comparative retrieval benchmarks across Naive, UI-style, and Optimized queries."""
+    """Runs comparative retrieval benchmarks across Naive, Keyword, and Optimized queries."""
     engine = LocalCorpusEngine(data_dir=data_dir, file_paths=file_paths)
     active_queries = build_dynamic_queries(engine)
     total = max(len(active_queries), 1)
@@ -239,19 +236,19 @@ def print_diagnostic_report(results: Dict[str, Any]) -> None:
     print("=" * 80)
     print("SEARCH DIAGNOSTICS & RETRIEVAL COMPARISON REPORT")
     print("=" * 80)
-    print(f"{'Query ID':<26} | {'Category':<28} | {'Naive (ADK)':<11} | {'UI Direct':<9} | {'Optimized'}")
-    print("-" * 88)
+    print(f"{'Query ID':<26} | {'Category':<28} | {'Naive':<11} | {'Keyword':<11} | {'Optimized'}")
+    print("-" * 90)
 
     for item in results["details"]:
         n_str = "PASS [HIT]" if item["hit_naive"] else "FAIL [MISS]"
         u_str = "PASS [HIT]" if item["hit_ui"] else "FAIL [MISS]"
         o_str = "PASS [HIT]" if item["hit_opt"] else "FAIL [MISS]"
-        print(f"{item['query_id']:<26} | {item['category'][:28]:<28} | {n_str:<11} | {u_str:<9} | {o_str}")
+        print(f"{item['query_id']:<26} | {item['category'][:28]:<28} | {n_str:<11} | {u_str:<11} | {o_str}")
 
-    print("-" * 88)
+    print("-" * 90)
     print(f"1. Natural Language Query Accuracy:   {results['naive']['accuracy']:.1f}% ({results['naive']['hits']}/{results['naive']['total']})")
-    print(f"2. Direct Keyword Query Accuracy:    {results['ui_direct']['accuracy']:.1f}% ({results['ui_direct']['hits']}/{results['ui_direct']['total']})")
-    print(f"3. Optimized Legal RAG Accuracy:     {results['optimized']['accuracy']:.1f}% ({results['optimized']['hits']}/{results['optimized']['total']})")
+    print(f"2. Direct Keyword Query Accuracy:     {results['ui_direct']['accuracy']:.1f}% ({results['ui_direct']['hits']}/{results['ui_direct']['total']})")
+    print(f"3. Optimized Legal Query Accuracy:    {results['optimized']['accuracy']:.1f}% ({results['optimized']['hits']}/{results['optimized']['total']})")
     print("=" * 80)
 
 
@@ -259,12 +256,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Search Diagnostics & Accuracy Comparator")
     parser.add_argument("--data", default="synthetic_data", help="Path to procurement dataset directory")
     parser.add_argument("--files", nargs="*", default=[], help="Additional explicit files")
-    parser.add_argument("--project", default=None, help="GCP Project ID for live Vertex AI Search API (Optional)")
-    parser.add_argument("--datastore", default=None, help="Vertex AI Search Data Store ID (Optional)")
     parser.add_argument("--json", action="store_true", help="Output results in JSON format")
 
     args = parser.parse_args()
-    results = run_diagnostics(args.data, args.project, args.datastore, args.files)
+    results = run_diagnostics(args.data, args.files)
 
     if args.json:
         print(json.dumps(results, indent=2))
